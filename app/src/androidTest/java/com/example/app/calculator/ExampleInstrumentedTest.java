@@ -1,4 +1,4 @@
-package com.example.company.calculator;
+package com.example.app.calculator;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

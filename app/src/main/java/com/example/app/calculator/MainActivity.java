@@ -1,16 +1,18 @@
-/**
+/*
  * Calculator app
  */
 
-package com.example.company.calculator;
+package com.example.app.calculator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.company.calculator.databinding.ActivityMainBinding;
+import com.example.app.calculator.databinding.ActivityMainBinding;
 
 import java.text.DecimalFormat;
 
@@ -26,17 +28,19 @@ public class MainActivity extends AppCompatActivity {
 
     private double valueOne = Double.NaN; //The first value the user enters
     private double valueTwo; //The second value the user enters
-    private String mode = "RAD"; //The current angle measure. Use "DEG" for degrees, and "RAD" for radians.
+    private String mode = "RAD";
 
     private DecimalFormat decimalFormat;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final Context self = this;
+
         decimalFormat = new DecimalFormat("#.##########");
 
-        binding = DataBindingUtil.setContentView(this, com.example.company.calculator.R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
 
         binding.buttonDot.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -185,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 computeCalculation();
                 binding.infoTextView.setText("sin(" + decimalFormat.format(valueOne));
                 if (mode.equals("DEG")) {
-                    if (valueOne % 180 == 0) {
+                    if (valueOne % 90 == 0) {
                         binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
                                 Math.round(Math.sin(Math.toRadians(valueOne))));
                     } else {
@@ -291,7 +295,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(self, BrowserActivity.class));
+            }
+        });
     }
+
     private void computeCalculation() {
         if (!Double.isNaN(valueOne)) {
             try {
@@ -316,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
                         valueOne = this.valueOne / valueTwo;
                     }
                     break;
+
             }
         } else {
             try {

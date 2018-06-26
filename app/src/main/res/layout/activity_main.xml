@@ -227,5 +227,23 @@
             android:layout_below="@id/buttonSin"
             android:text="RAD"
             android:textSize="20sp" />
+        <!--
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/nextButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_toRightOf="@id/buttonDeg"
+            android:layout_below="@id/buttonCos" />
+        -->
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/buttonDeg"
+            android:layout_below="@id/buttonCos"
+            android:text="More from this app's creator"
+            android:textSize="12sp"/>
     </RelativeLayout>
 </layout>
