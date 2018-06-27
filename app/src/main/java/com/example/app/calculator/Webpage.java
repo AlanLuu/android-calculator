@@ -73,7 +73,7 @@ public class Webpage {
 
     @Override
     public String toString() {
-        return "URL: " + this.url + ", Is it a static web page? " + (this.isWebView ? "Yes" : "No")
+        return "URL: " + this.url + ", Is it a WebView? " + (this.isWebView ? "Yes" : "No")
                 + ". Number of webpages created: " + numWebpages;
     }
 }
