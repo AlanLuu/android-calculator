@@ -1,7 +1,3 @@
-/*
- * Calculator app
- */
-
 package com.example.app.calculator;
 
 import android.annotation.SuppressLint;

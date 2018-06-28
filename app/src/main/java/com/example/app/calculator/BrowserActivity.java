@@ -23,7 +23,7 @@ public class BrowserActivity extends AppCompatActivity {
         aboutMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Webpage aboutTheDev = new Webpage(context, activity, "file:///android_asset/aboutTheDeveloper.html", true);
+                Website aboutTheDev = new Website(context, activity, "file:///android_asset/aboutTheDeveloper.html", true);
                 aboutTheDev.build();
             }
         });
@@ -32,7 +32,7 @@ public class BrowserActivity extends AppCompatActivity {
         circleCanvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Webpage circleCanvas = new Webpage(context, activity, "https://luualan9545.github.io/circle-canvas", false);
+                Website circleCanvas = new Website(context, activity, "https://luualan9545.github.io/circle-canvas", false);
                 circleCanvas.build();
             }
         });
