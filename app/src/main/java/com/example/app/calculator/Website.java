@@ -45,7 +45,7 @@ public class Website {
     }
 
     /**
-     * Behaves exactly the same as the constructor above, but allows a little more freedom in which order the context and activity variables are passed in.
+     * Constructs a website of given URL.
      */
     public Website(Activity activity, Context context, String url, boolean isWebView) {
         this(context, activity, url, isWebView);
