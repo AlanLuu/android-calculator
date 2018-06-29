@@ -15,16 +15,22 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
-    private static final char ADDITION = '+';
-    private static final char SUBTRACTION = '-';
-    private static final char MULTIPLICATION = '*';
-    private static final char DIVISION = '/';
+    private static final String ADDITION = "+";
+    private static final String SUBTRACTION = "-";
+    private static final String MULTIPLICATION = "*";
+    private static final String DIVISION = "/";
+    private static final String SIN = "sin ";
+    private static final String COS = "cos ";
+    private static final String TAN = "tan ";
+    private static final String DEG = "DEG";
+    private static final String RAD = "RAD";
 
-    private char CURRENT_ACTION; //Represents the current math operation being handled
+    private String CURRENT_ACTION; //Represents the current math operation being handled
 
     private double valueOne = Double.NaN; //The first value the user enters
     private double valueTwo; //The second value the user enters
-    private String mode = "RAD";
+    private double trigAnswer;
+    private String mode = RAD;
 
     private DecimalFormat decimalFormat;
 
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Context self = this;
+        final Context context = this;
 
         decimalFormat = new DecimalFormat("#.##########");
 
@@ -42,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + ".");
+                editTextSet(".");
             }
         });
 
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "0");
+               editTextSet("0");
             }
         });
 
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "1");
+                editTextSet("1");
             }
         });
 
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "2");
+                editTextSet("2");
             }
         });
 
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "3");
+                editTextSet("3");
             }
         });
 
@@ -82,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "4");
+                editTextSet("4");
             }
         });
 
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "5");
+                editTextSet("5");
             }
         });
 
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "6");
+                editTextSet("6");
             }
         });
 
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "7");
+                editTextSet("7");
             }
         });
 
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "8");
+                editTextSet("8");
             }
         });
 
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                binding.editText.setText(binding.editText.getText() + "9");
+                editTextSet("9");
             }
         });
 
@@ -130,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                computeCalculation();
                 CURRENT_ACTION = ADDITION;
+                computeCalculation();
                 if (!Double.isNaN(valueOne)) {
-                    binding.infoTextView.setText(decimalFormat.format(valueOne) + " + ");
+                    infoTextSet(" + ");
                 }
                 binding.editText.setText(null);
             }
@@ -143,10 +149,10 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                computeCalculation();
                 CURRENT_ACTION = SUBTRACTION;
+                computeCalculation();
                 if (!Double.isNaN(valueOne)) {
-                    binding.infoTextView.setText(decimalFormat.format(valueOne) + " - ");
+                    infoTextSet(" - ");
                 }
                 binding.editText.setText(null);
             }
@@ -156,10 +162,10 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                computeCalculation();
                 CURRENT_ACTION = MULTIPLICATION;
+                computeCalculation();
                 if (!Double.isNaN(valueOne)) {
-                    binding.infoTextView.setText(decimalFormat.format(valueOne) + " * ");
+                    infoTextSet(" * ");
                 }
                 binding.editText.setText(null);
             }
@@ -169,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                computeCalculation();
                 CURRENT_ACTION = DIVISION;
+                computeCalculation();
                 if (!Double.isNaN(valueOne)) {
-                    binding.infoTextView.setText(decimalFormat.format(valueOne) + " / ");
+                    infoTextSet(" / ");
                 }
                 binding.editText.setText(null);
             }
@@ -182,22 +188,9 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                CURRENT_ACTION = SIN;
                 computeCalculation();
-                binding.infoTextView.setText("sin(" + decimalFormat.format(valueOne));
-                if (mode.equals("DEG")) {
-                    if (valueOne % 90 == 0) {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.round(Math.sin(Math.toRadians(valueOne))));
-                    } else {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.sin(Math.toRadians(valueOne)));
-                    }
-                } else {
-                    binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " + Math.sin(valueOne));
-                }
-                binding.editText.setText(null);
-                valueOne = Double.NaN;
-                CURRENT_ACTION = '0';
+                binding.infoTextView.setText("sin ");
             }
         });
 
@@ -205,22 +198,9 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                CURRENT_ACTION = COS;
                 computeCalculation();
-                binding.infoTextView.setText("cos(" + decimalFormat.format(valueOne));
-                if (mode.equals("DEG")) {
-                    if (valueOne % 90 == 0) {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.round(Math.cos(Math.toRadians(valueOne))));
-                    } else {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.cos(Math.toRadians(valueOne)));
-                    }
-                } else {
-                    binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " + Math.cos(valueOne));
-                }
-                binding.editText.setText(null);
-                valueOne = Double.NaN;
-                CURRENT_ACTION = '0';
+                binding.infoTextView.setText("cos ");
             }
         });
 
@@ -228,22 +208,9 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                CURRENT_ACTION = TAN;
                 computeCalculation();
-                binding.infoTextView.setText("tan(" + decimalFormat.format(valueOne));
-                if (mode.equals("DEG")) {
-                    if (valueOne % 180 == 0) {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.round(Math.tan(Math.toRadians(valueOne))));
-                    } else {
-                        binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " +
-                                Math.tan(Math.toRadians(valueOne)));
-                    }
-                } else {
-                    binding.infoTextView.setText(binding.infoTextView.getText().toString() + ") = " + Math.tan(valueOne));
-                }
-                binding.editText.setText(null);
-                valueOne = Double.NaN;
-                CURRENT_ACTION = '0';
+                binding.infoTextView.setText("tan ");
             }
         });
 
@@ -252,11 +219,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mode.equals("RAD")) {
-                    mode = "DEG";
-                    binding.buttonDeg.setText("DEG");
+                    mode = DEG;
+                    binding.buttonDeg.setText(DEG);
                 } else {
-                    mode = "RAD";
-                    binding.buttonDeg.setText("RAD");
+                    mode = RAD;
+                    binding.buttonDeg.setText(RAD);
                 }
             }
         });
@@ -265,15 +232,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                computeCalculation();
-                if (CURRENT_ACTION == DIVISION && valueTwo == 0) {
-                    binding.infoTextView.setText("Error: Cannot divide by 0");
-                } else {
-                    binding.infoTextView.setText(binding.infoTextView.getText().toString() +
-                            decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
+                if (!Double.isNaN(valueOne) || binding.editText.getText().length() > 0) {
+                    computeCalculation();
+                    if (CURRENT_ACTION.equals(DIVISION) && valueTwo == 0) {
+                        binding.infoTextView.setText("Cannot divide by 0");
+                    } else {
+                        if (!Double.isNaN(valueTwo) && binding.editText.getText().length() > 0) {
+                            valueTwo = Double.parseDouble(binding.editText.getText().toString());
+                        }
+                        if (!Double.isNaN(valueTwo)) {
+                            binding.infoTextView.setText(binding.infoTextView.getText().toString() +
+                                    decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
+                        }
+                    }
+                    valueOne = Double.NaN;
+                    CURRENT_ACTION = "0";
                 }
-                valueOne = Double.NaN;
-                CURRENT_ACTION = '0';
+                binding.editText.setText(null);
             }
         });
 
@@ -295,18 +270,16 @@ public class MainActivity extends AppCompatActivity {
         binding.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(self, BrowserActivity.class));
+                startActivity(new Intent(context, BrowserActivity.class));
             }
         });
     }
 
     private void computeCalculation() {
+        if (binding.editText.getText().length() <= 0) return;
+
         if (!Double.isNaN(valueOne)) {
-            try {
-                valueTwo = Double.parseDouble(binding.editText.getText().toString());
-            } catch (Exception e) {
-                valueTwo = valueOne;
-            }
+            valueTwo = Double.parseDouble(binding.editText.getText().toString());
             binding.editText.setText(null);
 
             switch (CURRENT_ACTION) {
@@ -324,14 +297,56 @@ public class MainActivity extends AppCompatActivity {
                         valueOne = this.valueOne / valueTwo;
                     }
                     break;
-
             }
         } else {
-            try {
-                valueOne = Double.parseDouble(binding.editText.getText().toString());
-            } catch (Exception e) {
-                valueOne = Double.NaN;
+            valueOne = Double.parseDouble(binding.editText.getText().toString());
+            if (CURRENT_ACTION.equals(SIN) || CURRENT_ACTION.equals(COS) || CURRENT_ACTION.equals(TAN)) {
+                switch (CURRENT_ACTION) {
+                    case SIN:
+                        if (mode.equals(DEG)) {
+                            if (valueOne % 90 == 0) {
+                                valueOne = Math.round(Math.sin(Math.toRadians(valueOne)));
+                            } else {
+                                valueOne = Math.sin(Math.toRadians(valueOne));
+                            }
+                        } else {
+                            valueOne = Math.sin(valueOne);
+                        }
+                        break;
+                    case COS:
+                        if (mode.equals(DEG)) {
+                            if (valueOne % 180 == 0) {
+                                valueOne = Math.round(Math.cos(Math.toRadians(valueOne)));
+                            } else {
+                                valueOne = Math.cos(Math.toRadians(valueOne));
+                            }
+                        } else {
+                            valueOne = Math.cos(valueOne);
+                        }
+                        break;
+                    case TAN:
+                        if (mode.equals(DEG)) {
+                            if (valueOne % 180 == 0) {
+                                valueOne = Math.round(Math.tan(Math.toRadians(valueOne)));
+                            } else {
+                                valueOne = Math.tan(Math.toRadians(valueOne));
+                            }
+                        } else {
+                            valueOne = Math.tan(valueOne);
+                        }
+                        break;
+                }
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void editTextSet(String s) {
+        binding.editText.setText(binding.editText.getText() + s);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void infoTextSet(String s) {
+        binding.infoTextView.setText(decimalFormat.format(valueOne) + s);
     }
 }

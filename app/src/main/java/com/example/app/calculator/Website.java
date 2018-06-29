@@ -2,7 +2,9 @@ package com.example.app.calculator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.webkit.WebView;
@@ -129,9 +131,17 @@ public class Website {
             webView.setWebViewClient(new WebViewClient());
             activity.setContentView(webView);
         } else {
-            Uri uri = Uri.parse(url);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            activity.startActivity(intent);
+            new AlertDialog.Builder(context).setTitle("Notice")
+                    .setMessage("This will open in a new web browser. Do you want to continue?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Uri uri = Uri.parse(url);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            activity.startActivity(intent);
+                        }
+                    }).create().show();
         }
     }
 

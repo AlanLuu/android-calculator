@@ -2,11 +2,12 @@ package com.example.app.calculator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+
+import com.example.app.calculator.databinding.ActivityBrowserBinding;
 
 public class BrowserActivity extends AppCompatActivity {
     private final Context context = this;
@@ -15,12 +16,11 @@ public class BrowserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browser);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ActivityBrowserBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_browser);
 
-        Button aboutMe = findViewById(R.id.aboutMe);
-        aboutMe.setOnClickListener(new View.OnClickListener() {
+        setSupportActionBar(binding.toolbar);
+
+        binding.aboutMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Website aboutTheDev = new Website(context, activity, "file:///android_asset/aboutTheDeveloper.html", true);
@@ -28,8 +28,7 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
 
-        Button circleCanvas = findViewById(R.id.circleCanvas);
-        circleCanvas.setOnClickListener(new View.OnClickListener() {
+        binding.circleCanvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Website circleCanvas = new Website(context, activity, "https://luualan9545.github.io/circle-canvas", false);
@@ -37,4 +36,5 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
     }
+
 }
