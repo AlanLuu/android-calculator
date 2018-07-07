@@ -15,7 +15,6 @@ public class BrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityBrowserBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_browser);
-
         setSupportActionBar(binding.toolbar);
 
         binding.aboutMe.setOnClickListener(new View.OnClickListener() {

@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         decimalFormat = new DecimalFormat("#.##########");
-
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
 
         binding.buttonDot.setOnClickListener(new View.OnClickListener() {
