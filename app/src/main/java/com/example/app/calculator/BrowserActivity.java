@@ -1,18 +1,12 @@
 package com.example.app.calculator;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.AssetFileDescriptor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
 import android.media.MediaPlayer;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.app.calculator.databinding.ActivityBrowserBinding;
 
