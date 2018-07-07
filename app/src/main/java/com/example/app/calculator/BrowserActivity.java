@@ -6,14 +6,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.media.MediaPlayer;
 
 import com.example.app.calculator.databinding.ActivityBrowserBinding;
 
-import java.io.IOException;
-
 public class BrowserActivity extends AppCompatActivity {
-    private final MediaPlayer media = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
