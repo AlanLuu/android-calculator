@@ -28,29 +28,40 @@
 
             <include layout="@layout/content_browser" />
 
-            <Button
-                android:id="@+id/aboutMe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
-                android:text="About the creator"
-                android:textSize="20sp"
-                android:layout_marginTop="60dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="This is another project made by the creator of this calculator."
-                android:textSize="20sp"
-                android:layout_marginTop="145dp"
-                android:textColor="#000000"/>
-            <Button
-                android:id="@+id/circleCanvas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
-                android:text="Circle canvas"
-                android:textSize="20sp"
-                android:layout_marginTop="200dp"/>
         </android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/aboutMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="58dp"
+            android:text="About the creator"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="This is another project made by the creator of this calculator."
+            android:textSize="20sp"
+            android:layout_marginTop="170dp"
+            android:textColor="#000000"/>
+        <Button
+            android:id="@+id/circleCanvas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Circle canvas"
+            android:textSize="20sp"
+            android:layout_marginTop="230dp"/>
+
+        <Button
+            android:id="@+id/github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aboutMe"
+            android:text="Github repo"
+            android:textSize="20sp" />
     </RelativeLayout>
 </layout>

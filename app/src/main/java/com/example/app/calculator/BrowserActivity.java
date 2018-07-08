@@ -30,8 +30,17 @@ public class BrowserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Website circleCanvas = new Website(getContext(), getActivity(),
-                        "https://luualan9545.github.io/circle-canvas", false);
+                        "https://alanluu.github.io/circle-canvas", false);
                 circleCanvas.build();
+            }
+        });
+
+        binding.github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Website githubRepo = new Website(getContext(), getActivity(),
+                        "https://github.com/AlanLuu/android-calculator", false);
+                githubRepo.build();
             }
         });
     }
