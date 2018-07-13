@@ -21,7 +21,7 @@ public class BrowserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Website aboutTheDev = new Website(getContext(), getActivity(),
-                        "file:///android_asset/aboutTheDeveloper.html", true);
+                        "https://alanluu.github.io", true);
                 aboutTheDev.build();
             }
         });
@@ -41,6 +41,13 @@ public class BrowserActivity extends AppCompatActivity {
                 Website githubRepo = new Website(getContext(), getActivity(),
                         "https://github.com/AlanLuu/android-calculator", false);
                 githubRepo.build();
+            }
+        });
+
+        binding.canvas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(new SquarePattern(getContext()));
             }
         });
     }
