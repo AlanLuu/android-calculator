@@ -19,7 +19,6 @@ public class RandomCircles extends View {
             int randomX = r.nextInt(480 - randomRadius) + randomRadius;
             int randomY = r.nextInt(880 - randomRadius) + randomRadius;
             Shape circle = new Circle(randomX, randomY, randomRadius, android.graphics.Color.parseColor(Color.getRandomColor()));
-            circle.setColor(android.graphics.Color.parseColor(Color.getRandomColor()));
             circleArr.add(circle);
         }
     }
