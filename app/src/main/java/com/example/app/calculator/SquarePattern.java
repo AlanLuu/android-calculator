@@ -13,10 +13,7 @@ public class SquarePattern extends View {
         super(context);
         for (int i = 0; i < shapeArr.length; i++) {
             for (int j = 0; j < shapeArr[i].length; j++) {
-                Color color = Color.LIGHT_BLUE;
-                Shape square = new Square(j * 120, i * 110, 80, color.getColor());
-                if (j % 2 != 0) square.setColor(android.graphics.Color.parseColor("#ffa0c3"));
-                shapeArr[i][j] = square;
+                shapeArr[i][j] = new Square(j * 120, i * 110, 80, android.graphics.Color.parseColor(Color.getRandomColor()));
             }
         }
     }

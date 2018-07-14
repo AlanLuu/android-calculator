@@ -8,7 +8,7 @@ import android.view.View;
 import java.util.*;
 
 public class RandomCircles extends View {
-    private List<Shape> circleArr = new ArrayList<Shape>();
+    private List<Shape> circleArr = new ArrayList<>();
     private Paint paint = new Paint();
     private Random r = new Random();
 

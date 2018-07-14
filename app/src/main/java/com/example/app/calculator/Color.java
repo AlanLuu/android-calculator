@@ -25,7 +25,7 @@ public enum Color {
         this(android.graphics.Color.BLACK);
     }
 
-    int getColor() {
+    int toInt() {
         return color;
     }
 
