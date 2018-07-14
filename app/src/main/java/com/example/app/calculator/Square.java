@@ -16,6 +16,13 @@ public class Square extends Rectangle {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Square)) return false;
+        Square other = (Square) o;
+        return this.getColor() == other.getColor();
+    }
+
+    @Override
     public String toString() {
         return super.toString();
     }

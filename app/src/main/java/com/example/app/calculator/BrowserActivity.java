@@ -44,10 +44,17 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
 
-        binding.canvas.setOnClickListener(new View.OnClickListener() {
+        binding.squares.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setContentView(new SquarePattern(getContext()));
+            }
+        });
+
+        binding.circles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(new RandomCircles(getContext()));
             }
         });
     }
