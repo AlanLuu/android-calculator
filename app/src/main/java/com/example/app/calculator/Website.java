@@ -129,7 +129,7 @@ public class Website {
             WebView webView = new WebView(context);
             webView.loadUrl(url);
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.setWebChromeClient(new WebChromeClient());
+            webView.setWebViewClient(new WebViewClient());
             activity.setContentView(webView);
         } else {
             new AlertDialog.Builder(context).setTitle("Notice")
