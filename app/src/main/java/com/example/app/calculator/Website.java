@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -16,6 +15,8 @@ import android.webkit.WebViewClient;
  * @author Alan Luu
  * @version 1.0
  */
+
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Website {
     /** Interface to global information about an application environment. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc. */
     private Context context;

@@ -1,5 +1,6 @@
 package com.example.app.calculator;
 
+@SuppressWarnings("unused")
 public enum Color {
     RED(android.graphics.Color.RED),
     ORANGE(android.graphics.Color.parseColor("#ffa500")),

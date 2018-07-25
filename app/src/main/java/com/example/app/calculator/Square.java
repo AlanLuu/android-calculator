@@ -1,5 +1,6 @@
 package com.example.app.calculator;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Square extends Rectangle {
     private int sideLength;
 

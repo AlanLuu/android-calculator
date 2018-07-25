@@ -5,36 +5,37 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RandomCircles extends View {
-    private List<Shape> circleArr = new ArrayList<>();
+    private List<Circle> circleArr = new ArrayList<>();
     private Paint paint = new Paint();
-    private Random r = new Random();
+    private int width;
+    private int height;
 
     public RandomCircles(Context context) {
         super(context);
-        for (int i = 0; i < 10; i++) {
-            int randomRadius = getRandomInt(30, 50);
-            int randomX = r.nextInt(480 - randomRadius) + randomRadius;
-            int randomY = r.nextInt(880 - randomRadius) + randomRadius;
-            Shape circle = new Circle(randomX, randomY, randomRadius, android.graphics.Color.parseColor(Color.getRandomColor()));
-            circleArr.add(circle);
+        int numCircles = Utility.getRandomInt(10, 20);
+        for (int i = 0; i < numCircles; i++) {
+            circleArr.add(new Circle(0, 0, Utility.getRandomInt(30, 50), android.graphics.Color.parseColor(Color.getRandomColor())));
         }
+    }
+
+    @Override
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+        this.width = width;
+        this.height = height;
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (Shape shape : circleArr) {
-            shape.draw(canvas, paint);
+        for (Circle circle : circleArr) {
+            circle.setX(Utility.getRandomInt((int) circle.getRadius(), this.width - 1));
+            circle.setY(Utility.getRandomInt((int) circle.getRadius(), this.height - 1));
+            circle.draw(canvas, paint);
         }
-    }
-
-    private int getRandomInt(int min, int max) {
-        if (min >= max || max <= min) {
-            throw new IllegalArgumentException();
-        }
-        return r.nextInt(max - min + 1) + min;
     }
 }

@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Rectangle extends Shape {
     private int width;
     private int height;

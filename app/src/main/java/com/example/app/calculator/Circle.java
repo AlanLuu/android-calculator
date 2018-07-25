@@ -3,7 +3,7 @@ package com.example.app.calculator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Circle extends Shape {
     private float radius;
 
