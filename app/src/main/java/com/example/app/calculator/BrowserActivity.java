@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -16,6 +17,12 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityBrowserBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_browser);
         setSupportActionBar(binding.toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(false);
+            actionbar.setHomeAsUpIndicator(null);
+        }
 
         binding.aboutMe.setOnClickListener(new View.OnClickListener() {
             @Override

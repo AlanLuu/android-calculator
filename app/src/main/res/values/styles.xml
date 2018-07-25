@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="navigationIcon">@drawable/ic_menu</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
