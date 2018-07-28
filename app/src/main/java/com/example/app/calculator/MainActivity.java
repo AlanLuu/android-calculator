@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
 
@@ -30,6 +31,7 @@ enum Action {
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private DrawerLayout mDrawerLayout;
+    private Settings[] settings;
 
     private Action currentAction;
     private double valueOne = Double.NaN;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final int NUM_SWITCHES = 2;
         decimalFormat = new DecimalFormat("#.##########");
 
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
@@ -55,14 +58,32 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        final View textEntryView = getLayoutInflater().inflate(R.layout.activity_settings, new ViewGroup(getContext()) {
+            @Override
+            protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+                NOP();
+            }
+        });
+
+        settings = new Settings[NUM_SWITCHES];
+
+        for (int i = 0; i < settings.length; i++) {
+            if (i != 0) {
+                ((SettingsSaver)getApplication()).makeSettings();
+            }
+            settings[i] = ((SettingsSaver)getApplication()).getSettings();
+        }
+
+        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
 
                 switch (menuItem.getItemId()) {
+                    case R.id.settings_button:
+                        startActivity(new Intent(getContext(), SettingsActivity.class));
+                        break;
                     case R.id.next_button:
                         startActivity(new Intent(getContext(), BrowserActivity.class));
                         break;
@@ -205,6 +226,10 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonSin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (settings[1].isSwitchOn()) {
+                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
                 currentAction = Action.SIN;
                 binding.infoTextView.setText("sin(");
             }
@@ -213,6 +238,10 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonCos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (settings[1].isSwitchOn()) {
+                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
                 currentAction = Action.COS;
                 binding.infoTextView.setText("cos(");
             }
@@ -221,6 +250,10 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonTan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (settings[1].isSwitchOn()) {
+                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
                 currentAction = Action.TAN;
                 binding.infoTextView.setText("tan(");
             }
@@ -285,9 +318,9 @@ public class MainActivity extends AppCompatActivity {
                 if ((editTextLength > 1 && infoText.equals("")) || (editTextLength > 0 && !infoText.equals(""))) {
                     binding.editText.setText(editText.subSequence(0, editTextLength - 1));
                 } else {
-                    Snackbar snackbar = Snackbar.make(view, "Cleared all", calculationEnded
+                    Snackbar snackbar = Snackbar.make(view, "Cleared all", settings[0].isSwitchOn() || calculationEnded
                             ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
-                    if (calculationEnded) {
+                    if (settings[0].isSwitchOn() || calculationEnded) {
                         final Action copyOfCurrentAction = currentAction;
                         final CharSequence originalInfoText = binding.infoTextView.getText();
                         final boolean copyOfCalculationEnded = calculationEnded;

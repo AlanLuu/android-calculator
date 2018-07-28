@@ -84,4 +84,22 @@ public final class Utility {
         }
         return (int) (Math.random() * (max - min + 1)) + min;
     }
+
+    public static int findInt(int[] arr, int target) {
+        Arrays.sort(arr);
+        int min = 0;
+        int max = arr.length - 1;
+
+        while (min <= max) {
+            int guess = (min + max) / 2;
+            if (arr[guess] == target) {
+                return guess;
+            } else if (arr[guess] < target) {
+                min = guess + 1;
+            } else {
+                max = guess - 1;
+            }
+        }
+        return -1;
+    }
 }
