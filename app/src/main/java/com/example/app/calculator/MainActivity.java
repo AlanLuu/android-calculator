@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
 
@@ -57,13 +56,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
-        final View textEntryView = getLayoutInflater().inflate(R.layout.activity_settings, new ViewGroup(getContext()) {
-            @Override
-            protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-                NOP();
-            }
-        });
 
         settings = new Settings[NUM_SWITCHES];
 
