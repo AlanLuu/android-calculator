@@ -16,7 +16,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
-            actionbar.setTitle("Settings");
             actionbar.setDisplayHomeAsUpEnabled(false);
             actionbar.setHomeAsUpIndicator(null);
         }

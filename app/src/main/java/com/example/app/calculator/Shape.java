@@ -8,6 +8,8 @@ public abstract class Shape {
     private int x;
     private int y;
     private int color;
+    private int xVelocity = 0;
+    private int yVelocity = 0;
 
     public Shape(int x, int y, int color) {
         if (x < 0 || y < 0) {
@@ -17,6 +19,12 @@ public abstract class Shape {
         this.x = x;
         this.y = y;
         this.color = color;
+    }
+
+    public Shape(int x, int y, int color, int xVelocity, int yVelocity) {
+        this(x, y, color);
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
     }
 
     public int getX() {
@@ -31,12 +39,32 @@ public abstract class Shape {
         return color;
     }
 
+    public int getXVelocity() {
+        return xVelocity;
+    }
+
+    public int getYVelocity() {
+        return yVelocity;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public void setXVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public void setYVelocity(int yVelocity) {
+        this.yVelocity = yVelocity;
     }
 
     public void setPos(int x, int y) {
@@ -47,10 +75,6 @@ public abstract class Shape {
     public void updatePos(int dx, int dy) {
         this.x += dx;
         this.y += dy;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 
     @Override

@@ -15,6 +15,12 @@ public class Rectangle extends Shape {
         this.height = height;
     }
 
+    public Rectangle(int x, int y, int width, int height, int color, int xVelocity, int yVelocity) {
+        super(x, y, color, xVelocity, yVelocity);
+        this.width = width;
+        this.height = height;
+    }
+
     public int getWidth() {
         return width;
     }

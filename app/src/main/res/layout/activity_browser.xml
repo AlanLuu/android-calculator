@@ -6,29 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.app.samplecalculator.BrowserActivity">
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".BrowserActivity">
 
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            </android.support.design.widget.AppBarLayout>
-
-            <include layout="@layout/content_browser" />
-
-        </android.support.design.widget.CoordinatorLayout>
         <Button
             android:id="@+id/aboutMe"
             android:layout_width="wrap_content"
@@ -36,24 +14,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="58dp"
             android:text="About the creator"
             android:textSize="20sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="These are other projects made by the creator of this calculator."
-            android:textSize="20sp"
-            android:layout_marginTop="170dp"
-            android:textColor="#000000"/>
-        <Button
-            android:id="@+id/circleCanvas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Following circle"
-            android:textSize="20sp"
-            android:layout_marginTop="230dp"/>
-
         <Button
             android:id="@+id/github"
             android:layout_width="wrap_content"
@@ -62,6 +24,28 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/aboutMe"
             android:text="Github repo"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/github"
+            android:text="These are other projects made by the creator of this calculator."
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/circleCanvas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="157dp"
+            android:text="Following circle"
             android:textSize="20sp" />
 
         <Button

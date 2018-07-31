@@ -16,9 +16,8 @@ public class BrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityBrowserBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_browser);
-        setSupportActionBar(binding.toolbar);
 
-        ActionBar actionbar = getSupportActionBar();
+        final ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(false);
             actionbar.setHomeAsUpIndicator(null);
@@ -54,14 +53,20 @@ public class BrowserActivity extends AppCompatActivity {
         binding.squares.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(new SquarePattern(getContext()));
+                if (actionbar != null) actionbar.setTitle("Square pattern");
+                SquarePattern s = new SquarePattern(getContext());
+                setContentView(s);
+                new Thread(s).start();
             }
         });
 
         binding.circles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(new RandomCircles(getContext()));
+                if (actionbar != null) actionbar.setTitle("Random circles");
+                RandomCircles r = new RandomCircles(getContext());
+                setContentView(r);
+                new Thread(r).start();
             }
         });
     }

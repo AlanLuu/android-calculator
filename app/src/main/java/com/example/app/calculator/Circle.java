@@ -12,6 +12,11 @@ public class Circle extends Shape {
         this.radius = radius;
     }
 
+    public Circle(int x, int y, float radius, int color, int xVelocity, int yVelocity) {
+        super(x, y, color, xVelocity, yVelocity);
+        this.radius = radius;
+    }
+
     public float getRadius() {
         return radius;
     }

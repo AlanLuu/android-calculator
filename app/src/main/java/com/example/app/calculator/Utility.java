@@ -21,7 +21,7 @@ public final class Utility {
     private Utility() {}
 
     public static void handleException(final Context context, final Activity activity, View view, final Throwable e) {
-        final Snackbar errorSnackbar = Snackbar.make(view, "Oops, something went wrong.", Snackbar.LENGTH_LONG);
+        final Snackbar errorSnackbar = Snackbar.make(view, "Oops, something went wrong.", Snackbar.LENGTH_INDEFINITE);
         errorSnackbar.setAction("Send error report", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
