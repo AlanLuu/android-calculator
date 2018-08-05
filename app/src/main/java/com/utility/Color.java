@@ -1,4 +1,4 @@
-package com.example.app.calculator;
+package com.utility;
 
 @SuppressWarnings("unused")
 public enum Color {
@@ -26,11 +26,15 @@ public enum Color {
         this(android.graphics.Color.BLACK);
     }
 
-    int toInt() {
+    public int toInt() {
         return color;
     }
 
-    static String getRandomColor() {
+    public static int parseColor(String hex) {
+        return android.graphics.Color.parseColor(hex);
+    }
+
+    public static String getRandomColor() {
         char[] characters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         StringBuilder color = new StringBuilder();
         color.append('#');

@@ -49,13 +49,13 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/squares"
+            android:id="@+id/gravity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/circleCanvas"
-            android:text="Square pattern"
+            android:text="Gravity simulator"
             android:textSize="20sp" />
 
         <Button
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/squares"
+            android:layout_below="@+id/gravity"
             android:text="Random circles"
             android:textSize="20sp" />
     </RelativeLayout>

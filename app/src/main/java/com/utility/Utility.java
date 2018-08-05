@@ -1,4 +1,4 @@
-package com.example.app.calculator;
+package com.utility;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

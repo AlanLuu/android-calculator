@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
+import com.utility.Settings;
+import com.utility.Utility;
 
 import java.text.DecimalFormat;
 

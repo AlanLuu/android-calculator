@@ -6,6 +6,10 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.drawable.Circle;
+import com.utility.Color;
+import com.utility.Utility;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class RandomCircles extends View implements Runnable {
 
         int numCircles = 10;
         for (int i = 0; i < numCircles; i++) {
-            int randColor = android.graphics.Color.parseColor(Color.getRandomColor());
+            int randColor = Color.parseColor(Color.getRandomColor());
             int randXVel;
             int randYVel;
             do {
@@ -54,9 +58,18 @@ public class RandomCircles extends View implements Runnable {
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                circleArr.add(new Circle((int) x, (int) y, Utility.getRandomInt(30, 50),
-                        android.graphics.Color.parseColor(Color.getRandomColor()),
-                        Utility.getRandomInt(-speedRange, speedRange), Utility.getRandomInt(-speedRange, speedRange)));
+                int randXVel;
+                int randYVel;
+                do {
+                    randXVel = Utility.getRandomInt(-speedRange, speedRange);
+                } while (randXVel > -speedRange / 2 && randXVel < speedRange / 2);
+
+                do {
+                    randYVel = Utility.getRandomInt(-speedRange, speedRange);
+                } while (randYVel > -speedRange / 2 && randYVel < speedRange / 2);
+
+                circleArr.add(new Circle(x, y, Utility.getRandomInt(30, 50),
+                        Color.parseColor(Color.getRandomColor()), randXVel, randYVel));
                 break;
         }
         performClick();

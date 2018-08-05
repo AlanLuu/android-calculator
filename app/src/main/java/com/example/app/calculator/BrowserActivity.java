@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityBrowserBinding;
+import com.utility.Website;
 
 public class BrowserActivity extends AppCompatActivity {
 
@@ -50,13 +51,13 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
 
-        binding.squares.setOnClickListener(new View.OnClickListener() {
+        binding.gravity.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (actionbar != null) actionbar.setTitle("Square pattern");
-                SquarePattern s = new SquarePattern(getContext());
-                setContentView(s);
-                new Thread(s).start();
+            public void onClick(View v) {
+                if (actionbar != null) actionbar.setTitle("Gravity simulator");
+                GravitySim g = new GravitySim(getContext());
+                setContentView(g);
+                new Thread(g).start();
             }
         });
 

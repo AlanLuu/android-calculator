@@ -1,14 +1,14 @@
-package com.example.app.calculator;
+package com.drawable;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Square extends Rectangle {
     private int sideLength;
 
-    public Square(int x, int y, int sideLength, int color) {
+    public Square(double x, double y, int sideLength, int color) {
         super(x, y, sideLength, sideLength, color);
     }
 
-    public Square(int x, int y, int sideLength, int color, int xVelocity, int yVelocity) {
+    public Square(double x, double y, int sideLength, int color, double xVelocity, double yVelocity) {
         super(x, y, sideLength, sideLength, color, xVelocity, yVelocity);
     }
 

@@ -1,4 +1,4 @@
-package com.example.app.calculator;
+package com.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,12 +7,12 @@ import android.graphics.Paint;
 public class Circle extends Shape {
     private float radius;
 
-    public Circle(int x, int y, float radius, int color) {
+    public Circle(double x, double y, float radius, int color) {
         super(x, y, color);
         this.radius = radius;
     }
 
-    public Circle(int x, int y, float radius, int color, int xVelocity, int yVelocity) {
+    public Circle(double x, double y, float radius, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.radius = radius;
     }
@@ -39,14 +39,14 @@ public class Circle extends Shape {
     public boolean equals(Object o) {
         if (!(o instanceof Circle)) return false;
         Circle other = (Circle) o;
-        return this.radius == other.radius && this.getColor() == other.getColor();
+        return Double.compare(this.radius, other.radius) == 0 && this.getColor() == other.getColor();
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(getColor());
-        canvas.drawCircle(getX(), getY(), radius, paint);
+        canvas.drawCircle((float) getX(), (float) getY(), radius, paint);
     }
 
     @Override

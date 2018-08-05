@@ -1,4 +1,4 @@
-package com.example.app.calculator;
+package com.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,13 +9,13 @@ public class Rectangle extends Shape {
     private int width;
     private int height;
 
-    public Rectangle(int x, int y, int width, int height, int color) {
+    public Rectangle(double x, double y, int width, int height, int color) {
         super(x, y, color);
         this.width = width;
         this.height = height;
     }
 
-    public Rectangle(int x, int y, int width, int height, int color, int xVelocity, int yVelocity) {
+    public Rectangle(double x, double y, int width, int height, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.width = width;
         this.height = height;
@@ -59,7 +59,7 @@ public class Rectangle extends Shape {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(getColor());
 
-        Rect rect = new Rect(getX(), getY(), getX() + width, getY() + height);
+        Rect rect = new Rect((int) getX(), (int) getY(), (int) getX() + width, (int) getY() + height);
         canvas.drawRect(rect, paint);
     }
 

@@ -1,37 +1,33 @@
-package com.example.app.calculator;
+package com.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class Shape {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int color;
-    private int xVelocity = 0;
-    private int yVelocity = 0;
+    private double xVelocity = 0;
+    private double yVelocity = 0;
 
-    public Shape(int x, int y, int color) {
-        if (x < 0 || y < 0) {
-            throw new IllegalArgumentException("Error: " + (x < 0 && y < 0 ? "x and y" : x < 0 ? "x" : "y") +
-                    " cannot be negative.");
-        }
+    public Shape(double x, double y, int color) {
         this.x = x;
         this.y = y;
         this.color = color;
     }
 
-    public Shape(int x, int y, int color, int xVelocity, int yVelocity) {
+    public Shape(double x, double y, int color, double xVelocity, double yVelocity) {
         this(x, y, color);
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -39,19 +35,19 @@ public abstract class Shape {
         return color;
     }
 
-    public int getXVelocity() {
+    public double getXVelocity() {
         return xVelocity;
     }
 
-    public int getYVelocity() {
+    public double getYVelocity() {
         return yVelocity;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -59,11 +55,11 @@ public abstract class Shape {
         this.color = color;
     }
 
-    public void setXVelocity(int xVelocity) {
+    public void setXVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public void setYVelocity(int yVelocity) {
+    public void setYVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
     }
 
@@ -79,7 +75,7 @@ public abstract class Shape {
 
     @Override
     public String toString() {
-        return "This shape has not implemented its toString method yet.";
+        return this.getClass().getName() + " has not implemented its toString method yet.";
     }
 
     public abstract double area();

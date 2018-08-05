@@ -1,4 +1,4 @@
-package com.example.app.calculator;
+package com.utility;
 
 @SuppressWarnings("all")
 public class Settings {

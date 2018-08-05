@@ -2,6 +2,8 @@ package com.example.app.calculator;
 
 import android.app.Application;
 
+import com.utility.Settings;
+
 import java.util.ArrayList;
 import java.util.List;
 
