@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.math.BigDecimal;
+
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Circle extends Shape {
     private float radius;
@@ -15,6 +17,11 @@ public class Circle extends Shape {
     public Circle(double x, double y, float radius, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.radius = radius;
+    }
+
+    public Circle(Circle c) {
+        super(c.getX(), c.getY(), c.getColor(), c.getXVelocity(), c.getYVelocity());
+        this.radius = c.getRadius();
     }
 
     public float getRadius() {
@@ -39,7 +46,9 @@ public class Circle extends Shape {
     public boolean equals(Object o) {
         if (!(o instanceof Circle)) return false;
         Circle other = (Circle) o;
-        return Double.compare(this.radius, other.radius) == 0 && this.getColor() == other.getColor();
+        BigDecimal first = new BigDecimal(Float.toString(this.radius));
+        BigDecimal second = new BigDecimal(Float.toString(other.radius));
+        return first.equals(second) && this.getColor() == other.getColor();
     }
 
     @Override

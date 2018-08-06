@@ -2,7 +2,7 @@ package com.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.RectF;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Rectangle extends Shape {
@@ -19,6 +19,12 @@ public class Rectangle extends Shape {
         super(x, y, color, xVelocity, yVelocity);
         this.width = width;
         this.height = height;
+    }
+
+    public Rectangle(Rectangle r) {
+        super(r.getX(), r.getY(), r.getColor(), r.getXVelocity(), r.getYVelocity());
+        this.width = r.getWidth();
+        this.height = r.getHeight();
     }
 
     public int getWidth() {
@@ -59,7 +65,7 @@ public class Rectangle extends Shape {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(getColor());
 
-        Rect rect = new Rect((int) getX(), (int) getY(), (int) getX() + width, (int) getY() + height);
+        RectF rect = new RectF((float) getX(), (float) getY(), (float) (getX() + width), (float) (getY() + height));
         canvas.drawRect(rect, paint);
     }
 
