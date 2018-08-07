@@ -1,7 +1,7 @@
 # Android Calculator
 This is a basic calculator app for Android. 
 
-It builds the following APKs:
+The source code builds the following APKs:
 - ```app-debug.apk```
 - ```app-release unsigned.apk```
 
