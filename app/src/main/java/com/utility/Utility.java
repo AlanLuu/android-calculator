@@ -16,9 +16,13 @@ import java.util.Arrays;
  */
 
 //Utility cannot be subclassed.
+
+@SuppressWarnings({"unused", "WeakerAccess"})
 public final class Utility {
-    //Utility cannot be instantiated.
-    private Utility() {}
+    //Utility cannot be instantiated, and will throw an exception if attempted to do so.
+    private Utility() {
+        throw new UnsupportedOperationException("Error: Utility class cannot be instantiated.");
+    }
 
     public static void handleException(final Context context, final Activity activity, View view, final Throwable e) {
         final Snackbar errorSnackbar = Snackbar.make(view, "Oops, something went wrong.", Snackbar.LENGTH_INDEFINITE);

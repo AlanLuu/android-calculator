@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.Circle;
+import com.drawable.Text;
 import com.utility.Color;
 import com.utility.Utility;
 
@@ -16,6 +17,10 @@ import java.util.List;
 public class RandomCircles extends View implements Runnable {
     private List<Circle> circleArr = new ArrayList<>();
     private Paint paint = new Paint();
+    private Text[] moreCirclesText = {
+            new Text("Tap the screen to add more", 0, 50, Color.parseColor("#0000FF"), 35),
+            new Text("circles!", 0, 100, Color.parseColor("#0000FF"), 35)
+    };
     private int width;
     private int height;
     private int speedRange = 5;
@@ -95,6 +100,11 @@ public class RandomCircles extends View implements Runnable {
                 circle.setYVelocity(-circle.getYVelocity());
             }
             circle.draw(canvas, paint);
+        }
+        if (circleArr.size() <= 20) {
+            for (Text text : moreCirclesText) {
+                text.draw(canvas, paint);
+            }
         }
     }
 

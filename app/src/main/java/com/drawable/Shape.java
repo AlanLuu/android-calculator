@@ -1,10 +1,7 @@
 package com.drawable;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 @SuppressWarnings({"unused", "WeakerAccess"})
-public abstract class Shape {
+public abstract class Shape implements Drawable {
     private double x;
     private double y;
     private int color;
@@ -80,6 +77,4 @@ public abstract class Shape {
 
     public abstract double area();
     public abstract double perimeter();
-    public abstract boolean equals(Object o);
-    public abstract void draw(Canvas canvas, Paint paint);
 }

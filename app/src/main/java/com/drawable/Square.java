@@ -1,7 +1,7 @@
 package com.drawable;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Square extends Rectangle {
+public class Square extends Rectangle implements Drawable {
     private int sideLength;
 
     public Square(double x, double y, int sideLength, int color) {
