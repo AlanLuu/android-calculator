@@ -6,8 +6,7 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.drawable.Circle;
-import com.drawable.Text;
+import com.drawable.*;
 import com.utility.Color;
 import com.utility.Utility;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RandomCircles extends View implements Runnable {
-    private List<Circle> circleArr = new ArrayList<>();
+    private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
             new Text("Tap the screen to add more", 0, 50, Color.parseColor("#0000FF"), 35),
@@ -24,11 +23,11 @@ public class RandomCircles extends View implements Runnable {
     private int width;
     private int height;
     private int speedRange = 5;
+    private int numCircles = 10;
 
     public RandomCircles(Context context) {
         super(context);
 
-        int numCircles = 10;
         for (int i = 0; i < numCircles; i++) {
             int randColor = Color.parseColor(Color.getRandomColor());
             int randXVel;
@@ -41,7 +40,7 @@ public class RandomCircles extends View implements Runnable {
                 randYVel = Utility.getRandomInt(-speedRange, speedRange);
             } while (randYVel > -speedRange / 2 && randYVel < speedRange / 2);
 
-            circleArr.add(new Circle(0, 0, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
+            circles.add(new Circle(0, 0, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
         }
     }
 
@@ -50,7 +49,7 @@ public class RandomCircles extends View implements Runnable {
         this.width = width;
         this.height = height;
         super.onSizeChanged(width, height, oldWidth, oldHeight);
-        for (Circle circle : circleArr) {
+        for (Circle circle : circles) {
             circle.setX(Utility.getRandomInt((int) circle.getRadius(), this.width - 40));
             circle.setY(Utility.getRandomInt((int) circle.getRadius(), this.height - 40));
         }
@@ -73,7 +72,7 @@ public class RandomCircles extends View implements Runnable {
                     randYVel = Utility.getRandomInt(-speedRange, speedRange);
                 } while (randYVel > -speedRange / 2 && randYVel < speedRange / 2);
 
-                circleArr.add(new Circle(x, y, Utility.getRandomInt(30, 50),
+                circles.add(new Circle(x, y, Utility.getRandomInt(30, 50),
                         Color.parseColor(Color.getRandomColor()), randXVel, randYVel));
                 break;
         }
@@ -90,7 +89,7 @@ public class RandomCircles extends View implements Runnable {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (Circle circle : circleArr) {
+        for (Circle circle : circles) {
             circle.setX(circle.getX() + circle.getXVelocity());
             circle.setY(circle.getY() + circle.getYVelocity());
             if (circle.getX() + circle.getRadius() > width || circle.getX() - circle.getRadius() < 0) {
@@ -101,10 +100,11 @@ public class RandomCircles extends View implements Runnable {
             }
             circle.draw(canvas, paint);
         }
-        if (circleArr.size() <= 20) {
+        if (moreCirclesText != null) {
             for (Text text : moreCirclesText) {
                 text.draw(canvas, paint);
             }
+            if (circles.size() > numCircles + 10) moreCirclesText = null;
         }
     }
 
