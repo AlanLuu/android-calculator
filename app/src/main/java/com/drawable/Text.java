@@ -11,7 +11,7 @@ public class Text implements Drawable {
     private int color;
     private double textSize;
 
-    public Text(String message, double x, double y, int color, double textSize) {
+    public Text(String message, double x, double y, double textSize, int color) {
         this.message = message;
         this.x = x;
         this.y = y;
@@ -20,7 +20,7 @@ public class Text implements Drawable {
     }
 
     public Text(Text text) {
-        this(text.getMessage(), text.getX(), text.getY(), text.getColor(), text.getTextSize());
+        this(text.getMessage(), text.getX(), text.getY(), text.getTextSize(), text.getColor());
     }
 
     public String getMessage() {

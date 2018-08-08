@@ -9,14 +9,20 @@ public class Line implements Drawable {
     private double y1;
     private double x2;
     private double y2;
+    private double lineSize;
     private int color;
 
-    public Line(double x1, double y1, double x2, double y2, int color) {
+    public Line(double x1, double y1, double x2, double y2, double lineSize, int color) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.lineSize = lineSize;
         this.color = color;
+    }
+
+    public Line(Line line) {
+        this(line.getX1(), line.getY1(), line.getX2(), line.getY2(), line.getLineSize(), line.getColor());
     }
 
     public double getX1() {
@@ -33,6 +39,10 @@ public class Line implements Drawable {
 
     public double getY2() {
         return y2;
+    }
+
+    public double getLineSize() {
+        return lineSize;
     }
 
     public int getColor() {
@@ -55,6 +65,10 @@ public class Line implements Drawable {
         this.y2 = y2;
     }
 
+    public void setLineSize(double lineSize) {
+        this.lineSize = lineSize;
+    }
+
     public void setColor(int color) {
         this.color = color;
     }
@@ -63,6 +77,7 @@ public class Line implements Drawable {
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(color);
+        paint.setStrokeWidth((float) lineSize);
         canvas.drawLine((float) x1, (float) y1, (float) x2, (float) y2, paint);
     }
 

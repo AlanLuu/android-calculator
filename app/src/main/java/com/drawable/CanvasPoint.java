@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 
-import com.utility.Color;
+import com.util.Color;
 
 import java.util.Arrays;
 

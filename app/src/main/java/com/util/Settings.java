@@ -1,4 +1,4 @@
-package com.utility;
+package com.util;
 
 @SuppressWarnings("all")
 public class Settings {

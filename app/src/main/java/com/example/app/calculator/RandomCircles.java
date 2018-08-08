@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-import com.utility.Color;
-import com.utility.Utility;
+import com.util.Color;
+import com.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ public class RandomCircles extends View implements Runnable {
     private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
-            new Text("Tap the screen to add more", 0, 50, Color.parseColor("#0000FF"), 35),
-            new Text("circles!", 0, 100, Color.parseColor("#0000FF"), 35)
+            new Text("Tap the screen to add more", 0, 50, 35, Color.BLUE.toInt()),
+            new Text("circles!", 0, 100, 35, Color.BLUE.toInt())
     };
     private int width;
     private int height;

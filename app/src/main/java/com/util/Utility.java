@@ -1,4 +1,4 @@
-package com.utility;
+package com.util;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

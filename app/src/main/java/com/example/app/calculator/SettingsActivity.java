@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Switch;
 
-import com.utility.Settings;
+import com.util.Settings;
 
 public class SettingsActivity extends AppCompatActivity {
     private Switch[] switches;

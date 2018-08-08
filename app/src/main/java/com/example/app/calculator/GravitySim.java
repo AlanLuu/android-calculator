@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-import com.utility.Color;
-import com.utility.Utility;
+import com.util.Color;
+import com.util.Utility;
 
 public class GravitySim extends View implements Runnable {
     private Shape[] shapeArr = {

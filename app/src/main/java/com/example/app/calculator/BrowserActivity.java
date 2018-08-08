@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityBrowserBinding;
-import com.utility.Website;
+import com.util.Website;
 
 public class BrowserActivity extends AppCompatActivity {
 

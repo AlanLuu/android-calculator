@@ -1,4 +1,4 @@
-package com.utility;
+package com.util;
 
 @SuppressWarnings("unused")
 public enum Color {
@@ -6,7 +6,7 @@ public enum Color {
     ORANGE(android.graphics.Color.parseColor("#ffa500")),
     YELLOW(android.graphics.Color.parseColor("#ffff00")),
     GREEN(android.graphics.Color.GREEN),
-    BLUE(android.graphics.Color.BLUE),
+    BLUE(android.graphics.Color.parseColor("#0000FF")),
     VIOLET(android.graphics.Color.parseColor("#ee82ee")),
     PURPLE(android.graphics.Color.parseColor("#800080")),
     MAGENTA(android.graphics.Color.parseColor("#ff00ff")),
