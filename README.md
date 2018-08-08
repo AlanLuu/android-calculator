@@ -37,3 +37,7 @@ Contributing
 If you see any bug that can be fixed, or improvement that can be made, fork the repository and make the change! Anyone is welcome to submit a pull request, which I will look over, and either approve, provide constructive criticism, or improve upon them myself before merging.
 
 If you decide to re-enable the *unused methods* warning, and see any methods that are marked as *unused* by Android Studio, please don't remove them. Those are methods I have implemented so I can use them in the future.  
+
+#### Known bugs:
+- Settings don't save when the user quits the app.
+- Trigonometric functions on the calculator don't have full support with the four arithmetic operations.
