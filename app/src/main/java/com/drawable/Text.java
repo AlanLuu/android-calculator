@@ -15,8 +15,8 @@ public class Text implements Drawable {
         this.message = message;
         this.x = x;
         this.y = y;
-        this.color = color;
         this.textSize = textSize;
+        this.color = color;
     }
 
     public Text(Text text) {
