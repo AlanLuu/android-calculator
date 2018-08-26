@@ -26,11 +26,11 @@ public class Text extends Drawable {
         return textSize;
     }
 
-    public void setMessage(String message) {
-        this.text = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setText(double textSize) {
+    public void setTextSize(double textSize) {
         this.textSize = textSize;
     }
 
