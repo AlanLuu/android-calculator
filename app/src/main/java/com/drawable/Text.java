@@ -4,39 +4,22 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Text implements Drawable {
-    private String message;
-    private double x;
-    private double y;
-    private int color;
+public class Text extends Drawable {
+    private String text;
     private double textSize;
 
-    public Text(String message, double x, double y, double textSize, int color) {
-        this.message = message;
-        this.x = x;
-        this.y = y;
+    public Text(String text, double x, double y, double textSize, int color) {
+        super(x, y, color);
+        this.text = text;
         this.textSize = textSize;
-        this.color = color;
     }
 
     public Text(Text text) {
-        this(text.getMessage(), text.getX(), text.getY(), text.getTextSize(), text.getColor());
+        this(text.getText(), text.getX(), text.getY(), text.getTextSize(), text.getColor());
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public int getColor() {
-        return color;
+    public String getText() {
+        return text;
     }
 
     public double getTextSize() {
@@ -44,22 +27,10 @@ public class Text implements Drawable {
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.text = message;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public void setTextSize(double textSize) {
+    public void setText(double textSize) {
         this.textSize = textSize;
     }
 
@@ -67,19 +38,19 @@ public class Text implements Drawable {
     public boolean equals(Object o) {
         if (!(o instanceof Text)) return false;
         Text other = (Text) o;
-        return this.message.equals(other.message) && this.color == other.color;
+        return this.text.equals(other.text) && this.getColor() == other.getColor();
     }
 
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize((float) textSize);
-        paint.setColor(color);
-        canvas.drawText(message, (float) x, (float) y, paint);
+        paint.setColor(getColor());
+        canvas.drawText(text, (float) getX(), (float) getY(), paint);
     }
 
     @Override
     public String toString() {
-        return "Text: \n \tMessage: " + message + "\n \tX position: " + x + "\n \tY position: " +
-                y + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & color)) + "\n";
+        return "Text: \n \tMessage: " + text + "\n \tX position: " + getX() + "\n \tY position: " +
+                getY() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n";
     }
 }

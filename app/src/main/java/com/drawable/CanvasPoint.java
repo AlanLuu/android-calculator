@@ -2,21 +2,17 @@ package com.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.support.annotation.NonNull;
 
 import com.util.Color;
 
 import java.util.Arrays;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class CanvasPoint extends Point implements Drawable, Comparable<CanvasPoint> {
-    private int color;
+public class CanvasPoint extends Drawable {
     private double[] points;
 
     public CanvasPoint(int x, int y, int color) {
-        super(x, y);
-        this.color = color;
+        super(x, y, color);
     }
 
     public CanvasPoint() {
@@ -28,15 +24,12 @@ public class CanvasPoint extends Point implements Drawable, Comparable<CanvasPoi
     }
 
     public CanvasPoint(double[] points) {
+        this();
         this.points = points;
     }
 
     public CanvasPoint(CanvasPoint point) {
-        this(point.x, point.y, point.getColor());
-    }
-
-    public int getColor() {
-        return color;
+        this((int) point.getX(), (int) point.getY(), point.getColor());
     }
 
     public double[] getPoints() {
@@ -48,23 +41,19 @@ public class CanvasPoint extends Point implements Drawable, Comparable<CanvasPoi
         return Arrays.toString(points);
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CanvasPoint)) return false;
         CanvasPoint other = (CanvasPoint) o;
-        return super.equals(x, y) && this.color == other.color;
+        return this.getX() == other.getX() && this.getY() ==other.getY() && this.getColor() == other.getColor();
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(color);
+        paint.setColor(getColor());
         if (points == null) {
-            canvas.drawPoint(x, y, paint);
+            canvas.drawPoint((float) getX(), (float) getY(), paint);
         } else {
             float[] pointsAsFloat = new float[points.length];
             for (int i = 0; i < points.length; i++) {
@@ -75,15 +64,8 @@ public class CanvasPoint extends Point implements Drawable, Comparable<CanvasPoi
     }
 
     @Override
-    public int compareTo(@NonNull CanvasPoint other) {
-        int x = (other.x - this.x) * (other.x - this.x);
-        int y = (other.y - this.y) * (other.y - this.y);
-        return (int) (other.x > this.x || other.y > this.y ? Math.sqrt(x + y) : -Math.sqrt(x + y));
-    }
-
-    @Override
     public String toString() {
         return points != null ? "Points: " + Arrays.toString(points) : "Point: \n \tX position: " +
-                x + "\n \tY position: " + y + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & color)) + "\n";
+                getX() + "\n \tY position: " + getY() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n";
     }
 }
