@@ -78,9 +78,7 @@ public class Rectangle extends Shape {
 
         RectF rect = new RectF((float) getX(), (float) getY(), (float) (getX() + width), (float) (getY() + height));
         canvas.drawRect(rect, paint);
-        if (getXVelocity() != 0 || getYVelocity() != 0) {
-            animate();
-        }
+        animate();
     }
 
     @Override

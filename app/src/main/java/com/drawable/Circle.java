@@ -58,9 +58,7 @@ public class Circle extends Shape {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(getColor());
         canvas.drawCircle((float) getX(), (float) getY(), (float) radius, paint);
-        if (getXVelocity() != 0 || getYVelocity() != 0) {
-            animate();
-        }
+        animate();
     }
 
     @Override

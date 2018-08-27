@@ -11,10 +11,6 @@ public abstract class Drawable {
     private double xVelocity;
     private double yVelocity;
 
-    public Drawable(double x, double y, int color) {
-        this(x, y, color, 0, 0);
-    }
-
     public Drawable(double x, double y, int color, double xVelocity, double yVelocity) {
         this.x = x;
         this.y = y;
@@ -23,12 +19,12 @@ public abstract class Drawable {
         this.yVelocity = yVelocity;
     }
 
+    public Drawable(double x, double y, int color) {
+        this(x, y, color, 0, 0);
+    }
+
     public Drawable(Drawable d) {
-        this.x = d.getX();
-        this.y = d.getY();
-        this.color = d.getColor();
-        this.xVelocity = d.getXVelocity();
-        this.yVelocity = d.getYVelocity();
+        this(d.getX(), d.getY(), d.getColor(), d.getXVelocity(), d.getYVelocity());
     }
 
     public double getX() {
@@ -81,7 +77,8 @@ public abstract class Drawable {
         this.y += dy;
     }
 
-    void animate() {
+    protected void animate() {
+        if (getX() == 0 && getY() == 0) return;
         setX(getX() + getXVelocity());
         setY(getY() + getYVelocity());
     }
