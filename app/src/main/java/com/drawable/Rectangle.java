@@ -22,7 +22,7 @@ public class Rectangle extends Shape {
     }
 
     public Rectangle(Rectangle r) {
-        super(r.getX(), r.getY(), r.getColor(), r.getXVelocity(), r.getYVelocity());
+        super(r);
         this.width = r.getWidth();
         this.height = r.getHeight();
     }
@@ -33,6 +33,17 @@ public class Rectangle extends Shape {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getSideLength() {
+        if (!(this instanceof Square)) return 0;
+        return width;
+    }
+
+    public void setSideLength(int sideLength) {
+        if (!(this instanceof Square)) return;
+        width = sideLength;
+        height = sideLength;
     }
 
     public void setWidth(int width) {
@@ -67,17 +78,19 @@ public class Rectangle extends Shape {
 
         RectF rect = new RectF((float) getX(), (float) getY(), (float) (getX() + width), (float) (getY() + height));
         canvas.drawRect(rect, paint);
+        if (getXVelocity() != 0 || getYVelocity() != 0) {
+            animate();
+        }
     }
 
     @Override
     public String toString() {
         if (this instanceof Square) {
-            return "Square: \n \tX position: " + getX() + "\n \tY position: " + getY() + "\n \tSide length: " +
-                    ((Square) this).getSideLength() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) +
-                    "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
+            return super.toString() + "\n \tSide length: " +
+                    getSideLength() + "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
         }
-        return "Rectangle: \n \tX position: " + getX() + "\n \tY position: " + getY() + "\n \tWidth: " +
-                width + "\n \tHeight: "+ height + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) +
-                "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
+        return super.toString() + "\n \tWidth: " + width + "\n \tHeight: "+ height + "\n \tColor: " +
+                String.format("#%06X", (0xFFFFFF & getColor())) + "\n \tArea: " + area() +
+                "\n \tPerimeter: " + perimeter() + "\n";
     }
 }

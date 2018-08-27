@@ -11,6 +11,10 @@ public abstract class ComplexDrawable extends Drawable {
         this.y2 = y2;
     }
 
+    public ComplexDrawable(ComplexDrawable c) {
+        super(c);
+    }
+
     public double getX2() {
         return x2;
     }

@@ -15,7 +15,9 @@ public class Text extends Drawable {
     }
 
     public Text(Text text) {
-        this(text.getText(), text.getX(), text.getY(), text.getTextSize(), text.getColor());
+        super(text);
+        this.text = text.getText();
+        this.textSize = text.getTextSize();
     }
 
     public String getText() {
@@ -50,7 +52,8 @@ public class Text extends Drawable {
 
     @Override
     public String toString() {
-        return "Text: \n \tMessage: " + text + "\n \tX position: " + getX() + "\n \tY position: " +
-                getY() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n";
+        String s = super.toString();
+        return "Text: \n \tMessage: " + text + "\n \tText size: " + textSize + "\n" +
+                s.substring(this.getClass().getSimpleName().length() + 3, s.indexOf("X velocity: "));
     }
 }

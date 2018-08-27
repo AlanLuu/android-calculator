@@ -2,10 +2,8 @@ package com.drawable;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Square extends Rectangle {
-    private int sideLength;
-
     public Square(double x, double y, int sideLength, int color) {
-        super(x, y, sideLength, sideLength, color);
+        this(x, y, sideLength, color, 0, 0);
     }
 
     public Square(double x, double y, int sideLength, int color, double xVelocity, double yVelocity) {
@@ -16,23 +14,10 @@ public class Square extends Rectangle {
         super(s);
     }
 
-    public int getSideLength() {
-        return sideLength;
-    }
-
-    public void setSideLength(int sideLength) {
-        this.sideLength = sideLength;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Square)) return false;
         Square other = (Square) o;
         return this.getColor() == other.getColor();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

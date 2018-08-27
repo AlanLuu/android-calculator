@@ -7,47 +7,49 @@ import java.math.BigDecimal;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Circle extends Shape {
-    private float radius;
+    private double radius;
 
-    public Circle(double x, double y, float radius, int color) {
+    public Circle(double x, double y, double radius, int color) {
         super(x, y, color);
         this.radius = radius;
     }
 
-    public Circle(double x, double y, float radius, int color, double xVelocity, double yVelocity) {
+    public Circle(double x, double y, double radius, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.radius = radius;
     }
 
     public Circle(Circle c) {
-        super(c.getX(), c.getY(), c.getColor(), c.getXVelocity(), c.getYVelocity());
+        super(c);
         this.radius = c.getRadius();
     }
 
-    public float getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 
     @Override
     public double area() {
-        return Math.PI * Math.pow(radius, 2);
+        double result = Math.PI * Math.pow(radius, 2);
+        return Math.round(result * 100.0) / 100.0;
     }
 
     @Override
     public double perimeter() {
-        return 2 * Math.PI * radius;
+        double result = 2 * Math.PI * radius;
+        return Math.round(result * 100.0) / 100.0;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Circle)) return false;
         Circle other = (Circle) o;
-        BigDecimal first = new BigDecimal(Float.toString(this.radius));
-        BigDecimal second = new BigDecimal(Float.toString(other.radius));
+        BigDecimal first = new BigDecimal(Double.toString(this.radius));
+        BigDecimal second = new BigDecimal(Double.toString(other.radius));
         return first.equals(second) && this.getColor() == other.getColor();
     }
 
@@ -55,13 +57,15 @@ public class Circle extends Shape {
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(getColor());
-        canvas.drawCircle((float) getX(), (float) getY(), radius, paint);
+        canvas.drawCircle((float) getX(), (float) getY(), (float) radius, paint);
+        if (getXVelocity() != 0 || getYVelocity() != 0) {
+            animate();
+        }
     }
 
     @Override
     public String toString() {
-        return "Circle: \n \tX position: " + getX() + "\n \tY position: " + getY() + "\n \tRadius: " +
-                getRadius() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) +
+        return super.toString() + "\n \tRadius: " + getRadius() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) +
                 "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
     }
 }

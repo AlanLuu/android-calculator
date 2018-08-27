@@ -17,8 +17,8 @@ public class RandomCircles extends View implements Runnable {
     private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
-            new Text("Tap the screen to add more", 0, 50, 35, Color.BLUE.toInt()),
-            new Text("circles!", 0, 100, 35, Color.BLUE.toInt())
+            new Text("Tap the screen to add", 0, 50, 35, Color.BLUE.toInt()),
+            new Text("more circles!", 0, 100, 35, Color.BLUE.toInt())
     };
     private int width;
     private int height;
@@ -27,31 +27,19 @@ public class RandomCircles extends View implements Runnable {
 
     public RandomCircles(Context context) {
         super(context);
-
         for (int i = 0; i < numCircles; i++) {
-            int randColor = Color.parseColor(Color.getRandomColor());
-            int randXVel;
-            int randYVel;
-            do {
-                randXVel = Utility.getRandomInt(-speedRange, speedRange);
-            } while (randXVel > -speedRange / 2 && randXVel < speedRange / 2);
-
-            do {
-                randYVel = Utility.getRandomInt(-speedRange, speedRange);
-            } while (randYVel > -speedRange / 2 && randYVel < speedRange / 2);
-
-            circles.add(new Circle(0, 0, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
+            randomCircle(0, 0, speedRange);
         }
     }
 
     @Override
-    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+    protected void onSizeChanged(final int width, int height, int oldWidth, int oldHeight) {
         this.width = width;
         this.height = height;
         super.onSizeChanged(width, height, oldWidth, oldHeight);
         for (Circle circle : circles) {
-            circle.setX(Utility.getRandomInt((int) circle.getRadius(), this.width - 40));
-            circle.setY(Utility.getRandomInt((int) circle.getRadius(), this.height - 40));
+            circle.setX(Utility.getRandomInt((int) circle.getRadius(), this.width - 60));
+            circle.setY(Utility.getRandomInt((int) circle.getRadius(), this.height - 60));
         }
     }
 
@@ -62,18 +50,7 @@ public class RandomCircles extends View implements Runnable {
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                int randXVel;
-                int randYVel;
-                do {
-                    randXVel = Utility.getRandomInt(-speedRange, speedRange);
-                } while (randXVel > -speedRange / 2 && randXVel < speedRange / 2);
-
-                do {
-                    randYVel = Utility.getRandomInt(-speedRange, speedRange);
-                } while (randYVel > -speedRange / 2 && randYVel < speedRange / 2);
-
-                circles.add(new Circle(x, y, Utility.getRandomInt(30, 50),
-                        Color.parseColor(Color.getRandomColor()), randXVel, randYVel));
+                randomCircle(x, y, speedRange);
                 break;
         }
         performClick();
@@ -90,15 +67,13 @@ public class RandomCircles extends View implements Runnable {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         for (Circle circle : circles) {
-            circle.setX(circle.getX() + circle.getXVelocity());
-            circle.setY(circle.getY() + circle.getYVelocity());
+            circle.draw(canvas, paint);
             if (circle.getX() + circle.getRadius() > width || circle.getX() - circle.getRadius() < 0) {
                 circle.setXVelocity(-circle.getXVelocity());
             }
             if (circle.getY() + circle.getRadius() > height || circle.getY() - circle.getRadius() < 0) {
                 circle.setYVelocity(-circle.getYVelocity());
             }
-            circle.draw(canvas, paint);
         }
         if (moreCirclesText != null) {
             for (Text text : moreCirclesText) {
@@ -106,6 +81,21 @@ public class RandomCircles extends View implements Runnable {
             }
             if (circles.size() > numCircles + 10) moreCirclesText = null;
         }
+    }
+
+    private void randomCircle(float x, float y, int range) {
+        int randColor = Color.parseColor(Color.getRandomColor());
+        int randXVel;
+        int randYVel;
+        do {
+            randXVel = Utility.getRandomInt(-range, range);
+        } while (randXVel > -range / 2 && randXVel < range / 2);
+
+        do {
+            randYVel = Utility.getRandomInt(-range, range);
+        } while (randYVel > -range / 2 && randYVel < range / 2);
+
+        circles.add(new Circle(x, y, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

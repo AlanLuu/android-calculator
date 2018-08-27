@@ -13,7 +13,8 @@ public class Line extends ComplexDrawable {
     }
 
     public Line(Line line) {
-        this(line.getX(), line.getY(), line.getX2(), line.getY2(), line.getLineSize(), line.getColor());
+        super(line);
+        this.lineSize = line.getLineSize();
     }
 
     public double getLineSize() {
@@ -34,7 +35,6 @@ public class Line extends ComplexDrawable {
 
     @Override
     public String toString() {
-        return "Line: \n \tx1: " + getX() + "\n \ty1: " + getY() + "\n \tx2: " + getX2() + "\n \ty2: " + getY2() +
-                "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n";
+        return super.toString() + "\n \tx2: " + getX2() + "\n \ty2: " + getY2();
     }
 }

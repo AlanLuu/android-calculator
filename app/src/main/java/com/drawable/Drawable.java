@@ -12,7 +12,7 @@ public abstract class Drawable {
     private double yVelocity;
 
     public Drawable(double x, double y, int color) {
-        this(x, y, color, 0 ,0);
+        this(x, y, color, 0, 0);
     }
 
     public Drawable(double x, double y, int color, double xVelocity, double yVelocity) {
@@ -21,6 +21,14 @@ public abstract class Drawable {
         this.color = color;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
+    }
+
+    public Drawable(Drawable d) {
+        this.x = d.getX();
+        this.y = d.getY();
+        this.color = d.getColor();
+        this.xVelocity = d.getXVelocity();
+        this.yVelocity = d.getYVelocity();
     }
 
     public double getX() {
@@ -73,9 +81,16 @@ public abstract class Drawable {
         this.y += dy;
     }
 
+    void animate() {
+        setX(getX() + getXVelocity());
+        setY(getY() + getYVelocity());
+    }
+
     @Override
     public String toString() {
-        return this.getClass().getName() + " has not implemented its toString method yet.";
+        return this.getClass().getSimpleName() + ": \n \tX position: " + x + "\n \tY position: " + y +
+                "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n \t" +
+                "X velocity: " + xVelocity + "\n \tY velocity: " + yVelocity;
     }
 
     public abstract void draw(Canvas canvas, Paint paint);
