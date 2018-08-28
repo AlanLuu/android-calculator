@@ -50,7 +50,7 @@ public class Circle extends Shape {
         Circle other = (Circle) o;
         BigDecimal first = new BigDecimal(Double.toString(this.radius));
         BigDecimal second = new BigDecimal(Double.toString(other.radius));
-        return first.equals(second) && this.getColor() == other.getColor();
+        return first.compareTo(second) == 0 && this.getColor() == other.getColor();
     }
 
     @Override

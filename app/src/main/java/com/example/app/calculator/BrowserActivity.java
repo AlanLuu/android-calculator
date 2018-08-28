@@ -1,7 +1,5 @@
 package com.example.app.calculator;
 
-import android.app.Activity;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,7 +10,6 @@ import com.example.app.calculator.databinding.ActivityBrowserBinding;
 import com.util.Website;
 
 public class BrowserActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +24,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.aboutMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website aboutTheDev = new Website(getContext(), getActivity(),
+                Website aboutTheDev = new Website(getApplicationContext(), BrowserActivity.this,
                         "https://alanluu.github.io", true);
                 aboutTheDev.build();
             }
@@ -36,7 +33,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.circleCanvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website circleCanvas = new Website(getContext(), getActivity(),
+                Website circleCanvas = new Website(getApplicationContext(), BrowserActivity.this,
                         "https://alanluu.github.io/circle-canvas", false);
                 circleCanvas.build();
             }
@@ -45,7 +42,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website githubRepo = new Website(getContext(), getActivity(),
+                Website githubRepo = new Website(getApplicationContext(), BrowserActivity.this,
                         "https://github.com/AlanLuu/android-calculator", false);
                 githubRepo.build();
             }
@@ -53,9 +50,9 @@ public class BrowserActivity extends AppCompatActivity {
 
         binding.gravity.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (actionbar != null) actionbar.setTitle("Gravity simulator");
-                GravitySim g = new GravitySim(getContext());
+                GravitySim g = new GravitySim(getApplicationContext());
                 setContentView(g);
                 new Thread(g).start();
             }
@@ -65,18 +62,10 @@ public class BrowserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (actionbar != null) actionbar.setTitle("Random circles");
-                RandomCircles r = new RandomCircles(getContext());
+                RandomCircles r = new RandomCircles(getApplicationContext());
                 setContentView(r);
                 new Thread(r).start();
             }
         });
-    }
-
-    private Context getContext() {
-        return this;
-    }
-
-    private Activity getActivity() {
-        return (Activity) this;
     }
 }

@@ -33,7 +33,7 @@ public class RandomCircles extends View implements Runnable {
     }
 
     @Override
-    protected void onSizeChanged(final int width, int height, int oldWidth, int oldHeight) {
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
         this.width = width;
         this.height = height;
         super.onSizeChanged(width, height, oldWidth, oldHeight);
@@ -74,7 +74,6 @@ public class RandomCircles extends View implements Runnable {
             if (circle.getY() + circle.getRadius() > height || circle.getY() - circle.getRadius() < 0) {
                 circle.setYVelocity(-circle.getYVelocity());
             }
-
         }
         if (moreCirclesText != null) {
             for (Text text : moreCirclesText) {

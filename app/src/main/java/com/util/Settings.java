@@ -1,7 +1,7 @@
 package com.util;
 
-@SuppressWarnings("all")
-public class Settings {
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
+public final class Settings {
     private static String className;
     private boolean switchOn;
 

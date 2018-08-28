@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.math.BigDecimal;
+
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Line extends ComplexDrawable {
     private double lineSize;
@@ -23,6 +25,15 @@ public class Line extends ComplexDrawable {
 
     public void setLineSize(double lineSize) {
         this.lineSize = lineSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Line)) return false;
+        Line other = (Line) o;
+        BigDecimal first = new BigDecimal(Double.toString(this.lineSize));
+        BigDecimal second = new BigDecimal(Double.toString(other.lineSize));
+        return first.compareTo(second) == 0 && this.getColor() == other.getColor();
     }
 
     @Override

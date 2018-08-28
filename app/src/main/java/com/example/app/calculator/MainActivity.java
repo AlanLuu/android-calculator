@@ -1,8 +1,6 @@
 package com.example.app.calculator;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -76,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.settings_button:
-                        startActivity(new Intent(getContext(), SettingsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                         break;
                     case R.id.next_button:
-                        startActivity(new Intent(getContext(), BrowserActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BrowserActivity.class));
                         break;
                 }
                 return true;
@@ -353,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
             int indexOfDecimalPoint = binding.editText.getText().toString().indexOf(".");
             try {
                 //Is there a number after the decimal point?
-                NOP(binding.editText.getText().toString().charAt(indexOfDecimalPoint + 1));
+                char c = binding.editText.getText().toString().charAt(indexOfDecimalPoint + 1);
             } catch (StringIndexOutOfBoundsException e) {
                 /*
                 There wasn't any number after the decimal point, so tell the user what went wrong
@@ -448,25 +446,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleException(Throwable e) {
-        Utility.handleException(getContext(), getActivity(), findViewById(R.id.activity_main), e);
+        Utility.handleException(getApplicationContext(), this, findViewById(R.id.activity_main), e);
     }
 
     private void updateCurrentAction(Action currentAction) {
         this.currentAction = currentAction;
     }
 
-    private Context getContext() {
-        return this;
-    }
-
-    private Activity getActivity() {
-        return (Activity) this;
-    }
-
     private boolean actionIsTrig() {
         return currentAction == Action.SIN || currentAction == Action.COS || currentAction == Action.TAN;
     }
-
-    private void NOP(Object o) {}
-    private void NOP() {}
 }

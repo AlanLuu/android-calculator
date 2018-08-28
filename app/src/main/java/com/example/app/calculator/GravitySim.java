@@ -52,8 +52,15 @@ public class GravitySim extends View implements Runnable {
         if (e.getAction() == MotionEvent.ACTION_UP) {
             stop = System.currentTimeMillis();
             long timeElapsed = stop - this.start + 1000;
+            int temp = Utility.getRandomInt(1, 10);
             for (Drawable d : shapeArr) {
-                d.setXVelocity(Utility.getRandomInt(1, 10) > 5 ? this.distance / timeElapsed : -(this.distance / timeElapsed));
+                if (temp > 5) {
+                    d.setXVelocity(this.distance / timeElapsed);
+                    temp = Utility.getRandomInt(1, 5);
+                } else {
+                    d.setXVelocity(-(this.distance / timeElapsed));
+                    temp = Utility.getRandomInt(6, 10);
+                }
                 d.setYVelocity(Utility.getRandomInt(1, 10) > 5 ? this.distance / timeElapsed : -(this.distance / timeElapsed));
             }
             this.distance = 0;

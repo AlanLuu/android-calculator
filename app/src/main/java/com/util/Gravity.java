@@ -2,8 +2,10 @@ package com.util;
 
 import com.drawable.*;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
-public class Gravity {
+public final class Gravity {
     private Drawable[] drawables;
     private double gravity;
     private int canvasWidth;
@@ -16,6 +18,14 @@ public class Gravity {
     public Gravity(Drawable[] drawables, double gravity) {
         this.drawables = new Drawable[drawables.length];
         System.arraycopy(drawables, 0, this.drawables, 0, drawables.length);
+        this.gravity = gravity;
+    }
+
+    public Gravity(List<? extends Drawable> drawables, double gravity) {
+        this.drawables = new Drawable[drawables.size()];
+        for (int i = 0; i < drawables.size(); i++) {
+            this.drawables[i] = drawables.get(i);
+        }
         this.gravity = gravity;
     }
 

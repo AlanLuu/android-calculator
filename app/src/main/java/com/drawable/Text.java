@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.math.BigDecimal;
+
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Text extends Drawable {
     private String text;
@@ -40,7 +42,9 @@ public class Text extends Drawable {
     public boolean equals(Object o) {
         if (!(o instanceof Text)) return false;
         Text other = (Text) o;
-        return this.text.equals(other.text) && this.getColor() == other.getColor();
+        BigDecimal first = new BigDecimal(Double.toString(this.textSize));
+        BigDecimal second = new BigDecimal(Double.toString(other.textSize));
+        return this.text.equals(other.text) && first.compareTo(second) == 0 && this.getColor() == other.getColor();
     }
 
     public void draw(Canvas canvas, Paint paint) {
