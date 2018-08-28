@@ -48,6 +48,7 @@ public class Text extends Drawable {
         paint.setTextSize((float) textSize);
         paint.setColor(getColor());
         canvas.drawText(text, (float) getX(), (float) getY(), paint);
+        animate();
     }
 
     @Override

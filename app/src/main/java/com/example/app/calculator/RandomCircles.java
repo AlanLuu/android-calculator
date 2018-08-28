@@ -74,6 +74,7 @@ public class RandomCircles extends View implements Runnable {
             if (circle.getY() + circle.getRadius() > height || circle.getY() - circle.getRadius() < 0) {
                 circle.setYVelocity(-circle.getYVelocity());
             }
+
         }
         if (moreCirclesText != null) {
             for (Text text : moreCirclesText) {
@@ -98,16 +99,14 @@ public class RandomCircles extends View implements Runnable {
         circles.add(new Circle(x, y, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
     }
 
-    @SuppressWarnings("InfiniteLoopStatement")
+    @SuppressWarnings({"InfiniteLoopStatement", "EmptyCatchBlock"})
     @Override
     public void run() {
         for (;;) {
             postInvalidate();
             try {
                 Thread.sleep(1000 / 60); //60fps
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Thread was interrupted");
-            }
+            } catch (InterruptedException e) {}
         }
     }
 }
