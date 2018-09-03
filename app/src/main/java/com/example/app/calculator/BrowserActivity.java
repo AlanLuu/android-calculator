@@ -1,5 +1,7 @@
 package com.example.app.calculator;
 
+import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -24,7 +26,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.aboutMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website aboutTheDev = new Website(getApplicationContext(), BrowserActivity.this,
+                Website aboutTheDev = new Website(getContext(), getActivity(),
                         "https://alanluu.github.io", true);
                 aboutTheDev.build();
             }
@@ -33,7 +35,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.circleCanvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website circleCanvas = new Website(getApplicationContext(), BrowserActivity.this,
+                Website circleCanvas = new Website(getContext(), getActivity(),
                         "https://alanluu.github.io/circle-canvas", false);
                 circleCanvas.build();
             }
@@ -42,7 +44,7 @@ public class BrowserActivity extends AppCompatActivity {
         binding.github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Website githubRepo = new Website(getApplicationContext(), BrowserActivity.this,
+                Website githubRepo = new Website(getContext(), getActivity(),
                         "https://github.com/AlanLuu/android-calculator", false);
                 githubRepo.build();
             }
@@ -67,5 +69,13 @@ public class BrowserActivity extends AppCompatActivity {
                 new Thread(r).start();
             }
         });
+    }
+
+    private Context getContext() {
+        return this;
+    }
+
+    private Activity getActivity() {
+        return (Activity) this;
     }
 }
