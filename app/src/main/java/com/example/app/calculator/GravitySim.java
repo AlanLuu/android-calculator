@@ -11,23 +11,21 @@ import com.util.Color;
 import com.util.Gravity;
 import com.util.Utility;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class GravitySim extends View implements Runnable {
     private Drawable[] shapeArr = {
-            new Circle(100, 100, 40, Color.BLACK.toInt(), 2, 0),
-            new Circle(200, 100, 40, Color.LIGHT_BLUE.toInt(), 3, 0),
-            new Square(300, 100, 50, Color.RED.toInt(), 0, 0)
+            new Circle(100, 100, 40, Color.BLACK, 2, 0),
+            new Circle(200, 100, 40, Color.LIGHT_BLUE, 2, 0),
+            new Square(300, 100, 50, Color.MAGENTA)
     };
     private Paint paint = new Paint();
     private long start = System.currentTimeMillis();
     private float distance = 0;
     private int count = 0;
-    private double gravity = 0.1;
     private Gravity gravityManager;
 
     public GravitySim(Context context) {
         super(context);
-        gravityManager = new Gravity(shapeArr, gravity);
+        gravityManager = new Gravity(shapeArr, 0.1);
     }
 
     @Override

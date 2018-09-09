@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.util.Color;
+
 import java.math.BigDecimal;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -14,6 +16,10 @@ public class Text extends Drawable {
         super(x, y, color);
         this.text = text;
         this.textSize = textSize;
+    }
+
+    public Text(String text, double x, double y, double textSize, Color color) {
+        this(text, x, y, textSize, color.getInt());
     }
 
     public Text(Text text) {

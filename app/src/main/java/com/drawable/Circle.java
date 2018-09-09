@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.util.Color;
+
 import java.math.BigDecimal;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -10,13 +12,20 @@ public class Circle extends Shape {
     private double radius;
 
     public Circle(double x, double y, double radius, int color) {
-        super(x, y, color);
-        this.radius = radius;
+        this(x, y, radius, color, 0, 0);
+    }
+
+    public Circle(double x, double y, double radius, Color color) {
+        this(x, y, radius, color.getInt(), 0, 0);
     }
 
     public Circle(double x, double y, double radius, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.radius = radius;
+    }
+
+    public Circle(double x, double y, double radius, Color color, double xVelocity, double yVelocity) {
+        this(x, y, radius, color.getInt(), xVelocity, yVelocity);
     }
 
     public Circle(Circle c) {

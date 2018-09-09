@@ -4,21 +4,29 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.util.Color;
+
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Rectangle extends Shape {
     private int width;
     private int height;
 
     public Rectangle(double x, double y, int width, int height, int color) {
-        super(x, y, color);
-        this.width = width;
-        this.height = height;
+        this(x, y, width, height, color, 0, 0);
+    }
+
+    public Rectangle(double x, double y, int width, int height, Color color) {
+        this(x, y, width, height, color.getInt(), 0, 0);
     }
 
     public Rectangle(double x, double y, int width, int height, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
         this.width = width;
         this.height = height;
+    }
+
+    public Rectangle(double x, double y, int width, int height, Color color, double xVelocity, double yVelocity) {
+        this(x, y, width, height, color.getInt(), xVelocity, yVelocity);
     }
 
     public Rectangle(Rectangle r) {

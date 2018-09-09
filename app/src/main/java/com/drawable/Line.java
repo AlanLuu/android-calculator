@@ -3,6 +3,8 @@ package com.drawable;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.util.Color;
+
 import java.math.BigDecimal;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -12,6 +14,10 @@ public class Line extends ComplexDrawable {
     public Line(double x1, double y1, double x2, double y2, double lineSize, int color) {
         super(x1, y1, x2, y2, color);
         this.lineSize = lineSize;
+    }
+
+    public Line(double x1, double y1, double x2, double y2, double lineSize, Color color) {
+        this(x1, y1, x2, y2, lineSize, color.getInt());
     }
 
     public Line(Line line) {

@@ -17,8 +17,8 @@ public class RandomCircles extends View implements Runnable {
     private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
-            new Text("Tap the screen to add", 0, 50, 35, Color.BLUE.toInt()),
-            new Text("more circles!", 0, 100, 35, Color.BLUE.toInt())
+            new Text("Tap the screen to add", 0, 50, 35, Color.BLUE),
+            new Text("more circles!", 0, 100, 35, Color.BLUE)
     };
     private int width;
     private int height;
@@ -28,7 +28,7 @@ public class RandomCircles extends View implements Runnable {
     public RandomCircles(Context context) {
         super(context);
         for (int i = 0; i < numCircles; i++) {
-            randomCircle(0, 0, speedRange);
+            circles.add(randomCircle(0, 0, speedRange));
         }
     }
 
@@ -50,7 +50,7 @@ public class RandomCircles extends View implements Runnable {
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                randomCircle(x, y, speedRange);
+                circles.add(randomCircle(x, y, speedRange));
                 break;
         }
         performClick();
@@ -83,7 +83,7 @@ public class RandomCircles extends View implements Runnable {
         }
     }
 
-    private void randomCircle(float x, float y, int range) {
+    private Circle randomCircle(double x, double y, int range) {
         int randColor = Color.parseColor(Color.getRandomColor());
         int randXVel;
         int randYVel;
@@ -95,7 +95,7 @@ public class RandomCircles extends View implements Runnable {
             randYVel = Utility.getRandomInt(-range, range);
         } while (randYVel > -range / 2 && randYVel < range / 2);
 
-        circles.add(new Circle(x, y, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel));
+        return new Circle(x, y, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel);
     }
 
     @SuppressWarnings({"InfiniteLoopStatement", "EmptyCatchBlock"})
