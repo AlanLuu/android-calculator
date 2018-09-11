@@ -12,12 +12,20 @@ public class Line extends ComplexDrawable {
     private double lineSize;
 
     public Line(double x1, double y1, double x2, double y2, double lineSize, int color) {
-        super(x1, y1, x2, y2, color);
-        this.lineSize = lineSize;
+        this(x1, y1, x2, y2, lineSize, color, 0, 0);
     }
 
     public Line(double x1, double y1, double x2, double y2, double lineSize, Color color) {
-        this(x1, y1, x2, y2, lineSize, color.getInt());
+        this(x1, y1, x2, y2, lineSize, color.getInt(), 0, 0);
+    }
+
+    public Line(double x1, double y1, double x2, double y2, double lineSize, int color, double xVelocity, double yVelocity) {
+        super(x1, y1, x2, y2, color, xVelocity, yVelocity);
+        this.lineSize = lineSize;
+    }
+
+    public Line(double x1, double y1, double x2, double y2, double lineSize, Color color, double xVelocity, double yVelocity) {
+        this(x1, y1, x2, y2, lineSize, color.getInt(), xVelocity, yVelocity);
     }
 
     public Line(Line line) {
@@ -48,10 +56,6 @@ public class Line extends ComplexDrawable {
         paint.setColor(getColor());
         paint.setStrokeWidth((float) lineSize);
         canvas.drawLine((float) getX(), (float) getY(), (float) getX2(), (float) getY2(), paint);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\n \tx2: " + getX2() + "\n \ty2: " + getY2();
+        animate();
     }
 }

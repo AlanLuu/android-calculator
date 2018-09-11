@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import com.util.Color;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Rectangle extends Shape {
+public class Rectangle extends Drawable implements Shape {
     private int width;
     private int height;
 

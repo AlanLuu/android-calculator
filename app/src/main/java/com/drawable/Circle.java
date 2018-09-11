@@ -8,7 +8,7 @@ import com.util.Color;
 import java.math.BigDecimal;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class Circle extends Shape {
+public class Circle extends Drawable implements Shape {
     private double radius;
 
     public Circle(double x, double y, double radius, int color) {

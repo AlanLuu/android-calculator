@@ -53,6 +53,7 @@ public class Text extends Drawable {
         return this.text.equals(other.text) && first.compareTo(second) == 0 && this.getColor() == other.getColor();
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize((float) textSize);

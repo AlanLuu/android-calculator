@@ -20,14 +20,14 @@ import com.util.Utility;
 
 import java.text.DecimalFormat;
 
-enum Action {
-    NONE, ADDITION, SUBTRACTION, MULTIPLICATION,
-    DIVISION, SIN, COS, TAN, DEG, RAD
-}
-
 @SuppressWarnings("unused")
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity {
+    private enum Action {
+        NONE, ADDITION, SUBTRACTION, MULTIPLICATION,
+        DIVISION, SIN, COS, TAN, DEG, RAD
+    }
+
     private ActivityMainBinding binding;
     private DrawerLayout mDrawerLayout;
     private Settings[] settings;

@@ -98,6 +98,44 @@ public final class Gravity {
         }
     }
 
+    private void manage(Triangle t) {
+        if (t.getY() > canvasHeight) {
+            t.setY(canvasHeight);
+            t.setYVelocity(t.getYVelocity() * -0.6);
+        }
+        if (t.getY() < 0) {
+            t.setY(0);
+            t.setYVelocity(t.getYVelocity() * -0.6);
+        }
+        if (t.getX() + t.getSideLengths()[1] > canvasWidth) {
+            t.setX(canvasWidth - t.getSideLengths()[1]);
+            t.setXVelocity(t.getXVelocity() * -0.6);
+        }
+        if (t.getX() < 0) {
+            t.setX(0);
+            t.setXVelocity(t.getXVelocity() * -0.6);
+        }
+    }
+
+    private void manage(RightTriangle t) {
+        if (t.getY() > canvasHeight - t.getSideLengths()[0] / 2) {
+            t.setY(canvasHeight - t.getSideLengths()[0] / 2);
+            t.setYVelocity(t.getYVelocity() * -0.6);
+        }
+        if (t.getY() < 0) {
+            t.setY(0);
+            t.setYVelocity(t.getYVelocity() * -0.6);
+        }
+        if (t.getX() + t.getSideLengths()[1] > canvasWidth) {
+            t.setX(canvasWidth - t.getSideLengths()[1]);
+            t.setXVelocity(t.getXVelocity() * -0.6);
+        }
+        if (t.getX() < 0) {
+            t.setX(0);
+            t.setXVelocity(t.getXVelocity() * -0.6);
+        }
+    }
+
     public void start(int canvasWidth, int canvasHeight) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
@@ -110,6 +148,10 @@ public final class Gravity {
                 manage((Rectangle) d);
             } else if (d instanceof Text) {
                 manage((Text) d);
+            } else if (d instanceof Triangle && !(d instanceof RightTriangle)) {
+                manage((Triangle) d);
+            } else if (d instanceof RightTriangle) {
+                manage((RightTriangle) d);
             }
         }
     }
