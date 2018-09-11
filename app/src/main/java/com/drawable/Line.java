@@ -58,4 +58,9 @@ public class Line extends ComplexDrawable {
         canvas.drawLine((float) getX(), (float) getY(), (float) getX2(), (float) getY2(), paint);
         animate();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n \tLine size: " + lineSize + "\n";
+    }
 }
