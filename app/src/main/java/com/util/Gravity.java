@@ -136,6 +136,33 @@ public final class Gravity {
         }
     }
 
+    private void manage(Line l) {
+        if (l.getY() > canvasHeight) {
+            l.setY(canvasHeight);
+            l.setYVelocity(l.getYVelocity() * -0.6);
+        }
+        if (l.getY2() > canvasHeight) {
+            l.setY2(canvasHeight);
+            l.setYVelocity(l.getYVelocity() * -0.6);
+        }
+        if (l.getY() < 0) {
+            l.setY(-l.getY());
+            l.setYVelocity(l.getYVelocity() * -0.6);
+        }
+        if (l.getY2() < 0) {
+            l.setY2(-l.getY2());
+            l.setYVelocity(l.getYVelocity() * -0.6);
+        }
+        if (l.getX2() > canvasWidth) {
+            l.setX2(canvasWidth);
+            l.setXVelocity(l.getXVelocity() * -0.6);
+        }
+        if (l.getX() < 0) {
+            l.setX(-l.getX());
+            l.setXVelocity(l.getXVelocity() * -0.6);
+        }
+    }
+
     public void start(int canvasWidth, int canvasHeight) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
@@ -152,6 +179,8 @@ public final class Gravity {
                 manage((Triangle) d);
             } else if (d instanceof RightTriangle) {
                 manage((RightTriangle) d);
+            } else if (d instanceof Line) {
+                manage((Line) d);
             }
         }
     }

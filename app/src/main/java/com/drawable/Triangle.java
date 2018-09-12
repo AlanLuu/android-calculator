@@ -54,6 +54,14 @@ public class Triangle extends Drawable implements Shape {
     }
 
     public void setSideLengths(double[] sideLengths) {
+        if (!(this instanceof RightTriangle)) {
+            boolean triangleExists = this.sideLengths[0] + this.sideLengths[1] > this.sideLengths[2]
+                    && this.sideLengths[0] + this.sideLengths[2] > this.sideLengths[1]
+                    && this.sideLengths[1] + this.sideLengths[2] > this.sideLengths[0];
+            if (!triangleExists) {
+                throw new IllegalShapeException("Triangle does not satisfy the Triangle Inequality Theorem.");
+            }
+        }
         this.sideLengths = sideLengths;
     }
 
