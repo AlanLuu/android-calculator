@@ -49,9 +49,7 @@ public abstract class ComplexDrawable extends Drawable {
 
     @Override
     protected void animate() {
-        if (getX() == 0 && getY() == 0 && getX2() == 0 && getY2() == 0) return;
-        setX(getX() + getXVelocity());
-        setY(getY() + getYVelocity());
+        super.animate();
         setX2(getX2() + getXVelocity());
         setY2(getY2() + getYVelocity());
     }

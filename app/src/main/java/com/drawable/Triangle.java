@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+import com.exception.IllegalShapeException;
 import com.util.Color;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -20,6 +21,14 @@ public class Triangle extends Drawable implements Shape {
 
     public Triangle(double x, double y, double[] sideLengths, int color, double xVelocity, double yVelocity) {
         super(x, y, color, xVelocity, yVelocity);
+        if (!(this instanceof RightTriangle)) {
+            boolean triangleExists = sideLengths[0] + sideLengths[1] > sideLengths[2]
+                    && sideLengths[0] + sideLengths[2] > sideLengths[1]
+                    && sideLengths[1] + sideLengths[2] > sideLengths[0];
+            if (!triangleExists) {
+                throw new IllegalShapeException("Triangle does not satisfy the Triangle Inequality Theorem.");
+            }
+        }
         this.sideLengths = sideLengths;
     }
 
@@ -36,6 +45,14 @@ public class Triangle extends Drawable implements Shape {
         return sideLengths;
     }
 
+    public double getBase() {
+        return sideLengths[2];
+    }
+
+    public double getHeight() {
+        return Math.round(area() / (0.5 * getBase()) * 100.0) / 100.0;
+    }
+
     public void setSideLengths(double[] sideLengths) {
         this.sideLengths = sideLengths;
     }
@@ -50,7 +67,8 @@ public class Triangle extends Drawable implements Shape {
 
     @Override
     public double perimeter() {
-        return sideLengths[0] + sideLengths[1] + sideLengths[2];
+        double result = sideLengths[0] + sideLengths[1] + sideLengths[2];
+        return Math.round(result * 100.0) / 100.0;
     }
 
     @Override
@@ -64,13 +82,13 @@ public class Triangle extends Drawable implements Shape {
         path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo((float) getX(), (float) getY());
 
-        float x = (float) (getX() + sideLengths[1] / 2);
+        float x = (float) (getX() + sideLengths[2] / 2);
         float y = (float) (getY() - sideLengths[0]);
         path.lineTo(x, y);
-        x = (float) (x + sideLengths[1] / 2);
+        x = (float) (x + sideLengths[2] / 2);
         y = (float) (y + sideLengths[0]);
         path.lineTo(x, y);
-        x = (float) (x - sideLengths[1]);
+        x = (float) (x - sideLengths[2]);
         path.lineTo(x, y);
         path.close();
 
@@ -80,7 +98,8 @@ public class Triangle extends Drawable implements Shape {
 
     @Override
     public String toString() {
-        return super.toString() + "\n \tSide Length 1: " + sideLengths[0] + "\n \tSide Length 2: " +
-                sideLengths[1] + "\n \tSide Length 3: " + sideLengths[2] + "\n";
+        return super.toString() + "\n \tLength of side 1: " + sideLengths[0] + "\n \tLength of side 2: " +
+                sideLengths[1] + "\n \tLength of base: " + sideLengths[2] + "\n \tLength of height: " + getHeight() +
+                "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
     }
 }

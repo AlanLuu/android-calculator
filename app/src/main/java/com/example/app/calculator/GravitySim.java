@@ -3,6 +3,7 @@ package com.example.app.calculator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,9 +14,10 @@ import com.util.Utility;
 
 public class GravitySim extends View implements Runnable {
     private Drawable[] shapeArr = {
-            new Circle(100, 100, 40, Color.BLACK, 2, 0),
+            new Circle(100, 100, 40, Color.parseColor("#33c446"), 2, 0),
             new Circle(200, 100, 40, Color.LIGHT_BLUE, 2, 0),
-            new Square(300, 100, 50, Color.MAGENTA)
+            new Square(300, 100, 50, Color.MAGENTA),
+            new RightTriangle(100, 100, new double[]{75, 75}, Color.RED, 2, 0)
     };
     private Paint paint = new Paint();
     private long start = System.currentTimeMillis();
@@ -26,6 +28,7 @@ public class GravitySim extends View implements Runnable {
     public GravitySim(Context context) {
         super(context);
         gravityManager = new Gravity(shapeArr, 0.1);
+        Log.d("DEBUG", shapeArr[shapeArr.length - 1].toString());
     }
 
     @Override

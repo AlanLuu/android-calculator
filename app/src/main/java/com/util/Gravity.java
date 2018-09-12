@@ -103,12 +103,12 @@ public final class Gravity {
             t.setY(canvasHeight);
             t.setYVelocity(t.getYVelocity() * -0.6);
         }
-        if (t.getY() < 0) {
-            t.setY(0);
+        if (t.getY() - t.getHeight() < 0) {
+            t.setY(t.getHeight());
             t.setYVelocity(t.getYVelocity() * -0.6);
         }
-        if (t.getX() + t.getSideLengths()[1] > canvasWidth) {
-            t.setX(canvasWidth - t.getSideLengths()[1]);
+        if (t.getX() + t.getSideLengths()[2] > canvasWidth) {
+            t.setX(canvasWidth - t.getSideLengths()[2]);
             t.setXVelocity(t.getXVelocity() * -0.6);
         }
         if (t.getX() < 0) {
@@ -118,12 +118,12 @@ public final class Gravity {
     }
 
     private void manage(RightTriangle t) {
-        if (t.getY() > canvasHeight - t.getSideLengths()[0] / 2) {
-            t.setY(canvasHeight - t.getSideLengths()[0] / 2);
+        if (t.getY() > canvasHeight) {
+            t.setY(canvasHeight);
             t.setYVelocity(t.getYVelocity() * -0.6);
         }
-        if (t.getY() < 0) {
-            t.setY(0);
+        if (t.getY() - t.getHeight() < 0) {
+            t.setY(t.getHeight());
             t.setYVelocity(t.getYVelocity() * -0.6);
         }
         if (t.getX() + t.getSideLengths()[1] > canvasWidth) {

@@ -103,7 +103,6 @@ public abstract class Drawable {
     }
 
     protected void animate() {
-        if (getX() == 0 && getY() == 0) return;
         setX(getX() + getXVelocity());
         setY(getY() + getYVelocity());
     }
