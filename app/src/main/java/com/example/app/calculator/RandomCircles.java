@@ -23,11 +23,12 @@ public class RandomCircles extends View implements Runnable {
     private int width;
     private int height;
     private int speedRange = 5;
-    private int numCircles = 10;
+
+    private final int STARTING_CIRCLES = 10;
 
     public RandomCircles(Context context) {
         super(context);
-        for (int i = 0; i < numCircles; i++) {
+        for (int i = 0; i < STARTING_CIRCLES; i++) {
             circles.add(randomCircle(0, 0, speedRange));
         }
     }
@@ -79,7 +80,7 @@ public class RandomCircles extends View implements Runnable {
             for (Text text : moreCirclesText) {
                 text.draw(canvas, paint);
             }
-            if (circles.size() > numCircles + 10) moreCirclesText = null;
+            if (circles.size() > STARTING_CIRCLES + 10) moreCirclesText = null;
         }
     }
 
