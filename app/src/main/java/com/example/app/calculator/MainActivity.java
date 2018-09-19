@@ -15,12 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
+import com.util.Color;
 import com.util.Settings;
 import com.util.Utility;
 
 import java.text.DecimalFormat;
 
-@SuppressWarnings("unused")
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity {
     private enum Action {
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final int NUM_SWITCHES = 2;
         decimalFormat = new DecimalFormat("#.##########");
 
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        settings = new Settings[NUM_SWITCHES];
+        settings = new Settings[2];
 
         for (int i = 0; i < settings.length; i++) {
             if (i != 0) {
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 currentAction = Action.SIN;
@@ -231,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 currentAction = Action.COS;
@@ -243,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trig is disabled", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 currentAction = Action.TAN;
@@ -269,7 +268,9 @@ public class MainActivity extends AppCompatActivity {
                 if (editTextLength > 0 && (!Double.isNaN(valueOne) || (actionIsTrig()))) {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
-                        Snackbar.make(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT);
+                        snackbar.getView().setBackgroundColor(Color.parseColor("#d12414"));
+                        snackbar.show();
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
                         try {
@@ -326,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
                                 Snackbar.make(view, "Undo successful", Snackbar.LENGTH_SHORT).show();
                             }
                         });
+                        snackbar.setActionTextColor(Color.parseColor("#46bdbf"));
                     }
                     snackbar.show();
                     clearAll();
@@ -346,26 +348,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computeCalculation() {
-        if (binding.editText.getText().length() == 0 && !calculationEnded) return;
-        if (binding.editText.getText().toString().contains(".")) {
-            int indexOfDecimalPoint = binding.editText.getText().toString().indexOf(".");
-            try {
-                //Is there a number after the decimal point?
-                char c = binding.editText.getText().toString().charAt(indexOfDecimalPoint + 1);
-            } catch (StringIndexOutOfBoundsException e) {
-                /*
-                There wasn't any number after the decimal point, so tell the user what went wrong
-                and stop the execution of this method.
-                 */
-                View view = findViewById(R.id.activity_main);
-                Snackbar.make(view, "Bad expression", Snackbar.LENGTH_SHORT).show();
-                clearAll();
-                return;
-            }
+        String editText = binding.editText.getText().toString();
+        String infoText = binding.infoTextView.getText().toString();
+        if (editText.length() == 0 && !calculationEnded) return;
+
+        if (editText.contains(".") && editText.substring(editText.length() - 1).equals(".")) {
+            Snackbar.make(findViewById(R.id.activity_main), "Bad expression", Snackbar.LENGTH_SHORT).show();
+            clearAll();
+            return;
         }
 
         if (!Double.isNaN(valueOne) && !actionIsTrig()) {
-            valueTwo = Double.parseDouble(binding.editText.getText().toString());
+            valueTwo = Double.parseDouble(editText);
 
             switch (currentAction) {
                 case ADDITION:
@@ -383,12 +377,11 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             try {
-                if (calculationEnded && binding.infoTextView.getText().length() > 0 && binding.editText.getText().length() == 0
-                        && !actionIsTrig()) {
-                    int indexOfEqualsSign = binding.infoTextView.getText().toString().indexOf("=");
-                    valueOne = Double.parseDouble(binding.infoTextView.getText().toString().substring(indexOfEqualsSign + 2));
+                if (calculationEnded && infoText.length() > 0 && editText.length() == 0 && !actionIsTrig()) {
+                    int indexOfEqualsSign = infoText.indexOf("=");
+                    valueOne = Double.parseDouble(infoText.substring(indexOfEqualsSign + 2));
                 } else if (binding.editText.getText().length() > 0) {
-                    valueOne = Double.parseDouble(binding.editText.getText().toString());
+                    valueOne = Double.parseDouble(editText);
                 }
             } catch (NumberFormatException | NullPointerException e) {
                 handleException(e);

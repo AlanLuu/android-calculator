@@ -51,6 +51,7 @@ public final class Utility {
                 }
             }
         });
+        errorSnackbar.setActionTextColor(Color.parseColor("#46bdbf"));
         errorSnackbar.show();
     }
 

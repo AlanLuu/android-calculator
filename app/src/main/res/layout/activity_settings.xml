@@ -17,6 +17,7 @@
         android:layout_marginTop="12dp"
         android:checked="false"
         android:gravity="start"
+        android:theme="@style/Switch"
         android:text="Allow the ability to undo a clear before finishing a calculation (Beta feature, might mess up the user experience)" />
 
     <Switch
@@ -27,6 +28,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="76dp"
-        android:text="Disable trig functions" />
+        android:checked="false"
+        android:gravity="start"
+        android:theme="@style/Switch"
+        android:text="Disable trigonometry functions" />
 
 </RelativeLayout>
