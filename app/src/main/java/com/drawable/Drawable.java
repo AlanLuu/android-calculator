@@ -81,7 +81,7 @@ public abstract class Drawable {
         if (!color.substring(0, 1).equals("#")) {
             color = "#" + color;
         }
-        this.color = android.graphics.Color.parseColor(color);
+        this.color = Color.parseColor(color);
     }
 
     public void setXVelocity(double xVelocity) {
@@ -110,8 +110,7 @@ public abstract class Drawable {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": \n \tX position: " + x + "\n \tY position: " + y +
-                "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n \t" +
-                "X velocity: " + xVelocity + "\n \tY velocity: " + yVelocity;
+                "\n \tColor: " + getColorAsHex() + "\n \t" + "X velocity: " + xVelocity + "\n \tY velocity: " + yVelocity;
     }
 
     public abstract void draw(Canvas canvas, Paint paint);

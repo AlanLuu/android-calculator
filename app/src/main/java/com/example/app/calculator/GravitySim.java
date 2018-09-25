@@ -7,16 +7,17 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-import com.util.Color;
 import com.util.Gravity;
-import com.util.Utility;
+
+import static com.util.Color.*;
+import static com.util.Utility.getRandomInt;
 
 public class GravitySim extends View implements Runnable {
     private Drawable[] shapeArr = {
-            new Circle(100, 100, 40, Color.parseColor("#33c446"), 2, 0),
-            new Circle(200, 100, 40, Color.RED, 2, 0),
-            new Square(300, 100, 50, Color.MAGENTA),
-            new RightTriangle(100, 100, new double[]{75, 75}, Color.parseColor("#0675d1"), 2, 0)
+            new Circle(100, 100, 40, parseColor("#33c446"), 2, 0),
+            new Circle(200, 100, 40, RED, 2, 0),
+            new Square(300, 100, 50, MAGENTA),
+            new RightTriangle(100, 100, new double[]{75, 75}, parseColor("#0675d1"), 2, 0)
     };
     private Paint paint = new Paint();
     private long start = System.currentTimeMillis();
@@ -55,16 +56,16 @@ public class GravitySim extends View implements Runnable {
         if (e.getAction() == MotionEvent.ACTION_UP) {
             stop = System.currentTimeMillis();
             long timeElapsed = stop - this.start + 1000;
-            int temp = Utility.getRandomInt(1, 10);
+            int temp = getRandomInt(1, 10);
             for (Drawable d : shapeArr) {
                 if (temp > 5) {
                     d.setXVelocity(this.distance / timeElapsed);
-                    temp = Utility.getRandomInt(1, 5);
+                    temp = getRandomInt(1, 5);
                 } else {
                     d.setXVelocity(-(this.distance / timeElapsed));
-                    temp = Utility.getRandomInt(6, 10);
+                    temp = getRandomInt(6, 10);
                 }
-                d.setYVelocity(Utility.getRandomInt(1, 10) > 5 ? this.distance / timeElapsed : -(this.distance / timeElapsed));
+                d.setYVelocity(getRandomInt(1, 10) > 5 ? this.distance / timeElapsed : -(this.distance / timeElapsed));
             }
             this.distance = 0;
             this.count = 0;

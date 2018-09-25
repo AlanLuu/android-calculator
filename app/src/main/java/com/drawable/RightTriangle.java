@@ -89,8 +89,7 @@ public class RightTriangle extends Triangle {
     @Override
     public String toString() {
         String s = this.getClass().getSimpleName() + ": \n \tX position: " + getX() + "\n \tY position: " + getY() +
-                "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) + "\n \t" +
-                "X velocity: " + getXVelocity() + "\n \tY velocity: " + getYVelocity();
+                "\n \tColor: " + getColorAsHex() + "\n \t" + "X velocity: " + getXVelocity() + "\n \tY velocity: " + getYVelocity();
         double a = getSideLengths()[0], b = getSideLengths()[1];
         return s + "\n \tLength of side A: " + a + "\n \tLength of side B: " + b + "\n \tLength of hypotenuse: " +
                 Math.round(pythagorean(a, b) * 100.0) / 100.0 + "\n \tArea: " + area() + "\n \tPerimeter: " +

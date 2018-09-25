@@ -7,24 +7,25 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-import com.util.Color;
-import com.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.util.Color.*;
+import static com.util.Utility.getRandomInt;
 
 public class RandomCircles extends View implements Runnable {
     private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
-            new Text("Tap the screen to add", 0, 50, 35, Color.BLUE),
-            new Text("more circles!", 0, 100, 35, Color.BLUE)
+            new Text("Tap the screen to add", 0, 50, 35, BLUE),
+            new Text("more circles!", 0, 100, 35, BLUE)
     };
     private int width;
     private int height;
     private int speedRange = 5;
 
-    private final int STARTING_CIRCLES = 10;
+    public static final int STARTING_CIRCLES = 10;
 
     public RandomCircles(Context context) {
         super(context);
@@ -39,8 +40,8 @@ public class RandomCircles extends View implements Runnable {
         this.height = height;
         super.onSizeChanged(width, height, oldWidth, oldHeight);
         for (Circle circle : circles) {
-            circle.setX(Utility.getRandomInt((int) circle.getRadius(), this.width - 60));
-            circle.setY(Utility.getRandomInt((int) circle.getRadius(), this.height - 60));
+            circle.setX(getRandomInt((int) circle.getRadius(), this.width - 60));
+            circle.setY(getRandomInt((int) circle.getRadius(), this.height - 60));
         }
     }
 
@@ -85,18 +86,17 @@ public class RandomCircles extends View implements Runnable {
     }
 
     private Circle randomCircle(double x, double y, int range) {
-        int randColor = Color.parseColor(Color.getRandomColor());
         int randXVel;
         int randYVel;
         do {
-            randXVel = Utility.getRandomInt(-range, range);
+            randXVel = getRandomInt(-range, range);
         } while (randXVel > -range / 2 && randXVel < range / 2);
 
         do {
-            randYVel = Utility.getRandomInt(-range, range);
+            randYVel = getRandomInt(-range, range);
         } while (randYVel > -range / 2 && randYVel < range / 2);
 
-        return new Circle(x, y, Utility.getRandomInt(30, 50), randColor, randXVel, randYVel);
+        return new Circle(x, y, getRandomInt(30, 50), getRandomColor(), randXVel, randYVel);
     }
 
     @SuppressWarnings({"InfiniteLoopStatement", "EmptyCatchBlock"})

@@ -91,9 +91,14 @@ public final class Utility {
     }
 
     public static int findInt(int[] arr, int target) {
-        Arrays.sort(arr);
         int min = 0;
         int max = arr.length - 1;
+
+        for (int i = min; i < max; i++) {
+            if (arr[i] > arr[i + 1]) {
+                throw new IllegalArgumentException("Array is not sorted.");
+            }
+        }
 
         while (min <= max) {
             int guess = (min + max) / 2;

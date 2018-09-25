@@ -72,7 +72,7 @@ public class Circle extends Drawable implements Shape {
 
     @Override
     public String toString() {
-        return super.toString() + "\n \tRadius: " + getRadius() + "\n \tColor: " + String.format("#%06X", (0xFFFFFF & getColor())) +
+        return super.toString() + "\n \tRadius: " + getRadius() + "\n \tColor: " + getColorAsHex() +
                 "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
     }
 }

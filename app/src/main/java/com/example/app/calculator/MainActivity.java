@@ -15,11 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
-import com.util.Color;
 import com.util.Settings;
 import com.util.Utility;
 
 import java.text.DecimalFormat;
+
+import static com.util.Color.parseColor;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity {
@@ -269,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
                         Snackbar snackbar = Snackbar.make(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT);
-                        snackbar.getView().setBackgroundColor(Color.parseColor("#d12414"));
+                        snackbar.getView().setBackgroundColor(parseColor("#d12414"));
                         snackbar.show();
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                                 Snackbar.make(view, "Undo successful", Snackbar.LENGTH_SHORT).show();
                             }
                         });
-                        snackbar.setActionTextColor(Color.parseColor("#46bdbf"));
+                        snackbar.setActionTextColor(parseColor("#46bdbf"));
                     }
                     snackbar.show();
                     clearAll();

@@ -31,7 +31,11 @@ public enum Color {
         return android.graphics.Color.parseColor(hex);
     }
 
-    public static String getRandomColor() {
+    public static int getRandomColor() {
+        return parseColor(getRandomHex());
+    }
+
+    public static String getRandomHex() {
         char[] characters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         StringBuilder color = new StringBuilder()
                 .append("#");
