@@ -6,7 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public final class Gravity {
-    private Drawable[] drawables;
+    private FinalArray<Drawable> drawables;
     private double gravity;
     private int canvasWidth;
     private int canvasHeight;
@@ -16,20 +16,16 @@ public final class Gravity {
     }
 
     public Gravity(Drawable[] drawables, double gravity) {
-        this.drawables = new Drawable[drawables.length];
-        System.arraycopy(drawables, 0, this.drawables, 0, drawables.length);
+        this.drawables = FinalArray.from(drawables);
         this.gravity = gravity;
     }
 
     public Gravity(List<? extends Drawable> drawables, double gravity) {
-        this.drawables = new Drawable[drawables.size()];
-        for (int i = 0; i < drawables.size(); i++) {
-            this.drawables[i] = drawables.get(i);
-        }
+        this.drawables = FinalArray.from(drawables.toArray(new Drawable[drawables.size()]));
         this.gravity = gravity;
     }
 
-    public Drawable[] getDrawables() {
+    public FinalArray<Drawable> getDrawables() {
         return drawables;
     }
 

@@ -47,6 +47,7 @@ public class Circle extends Drawable implements Shape {
         return Math.round(result * 100.0) / 100.0;
     }
 
+    //This is actually the circumference.
     @Override
     public double perimeter() {
         double result = 2 * Math.PI * radius;
@@ -72,7 +73,7 @@ public class Circle extends Drawable implements Shape {
 
     @Override
     public String toString() {
-        return super.toString() + "\n \tRadius: " + getRadius() + "\n \tColor: " + getColorAsHex() +
-                "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
+        return super.toString() + "\n \tRadius: " + getRadius() + "\n \tArea: " + area() +
+                "\n \tCircumference: " + perimeter() + "\n";
     }
 }

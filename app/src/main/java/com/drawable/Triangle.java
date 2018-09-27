@@ -7,6 +7,8 @@ import android.graphics.Path;
 import com.exception.IllegalShapeException;
 import com.util.Color;
 
+import java.util.Arrays;
+
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Triangle extends Drawable implements Shape {
     private double[] sideLengths;
@@ -42,7 +44,7 @@ public class Triangle extends Drawable implements Shape {
     }
 
     public double[] getSideLengths() {
-        return sideLengths;
+        return Arrays.copyOf(sideLengths, sideLengths.length);
     }
 
     public double getBase() {
@@ -77,6 +79,18 @@ public class Triangle extends Drawable implements Shape {
     public double perimeter() {
         double result = sideLengths[0] + sideLengths[1] + sideLengths[2];
         return Math.round(result * 100.0) / 100.0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Triangle)) return false;
+        Triangle other = (Triangle) o;
+        for (int i = 0; i < sideLengths.length; i++) {
+            if (this.sideLengths[i] != other.sideLengths[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

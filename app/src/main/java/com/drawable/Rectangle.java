@@ -95,7 +95,7 @@ public class Rectangle extends Drawable implements Shape {
             return super.toString() + "\n \tSide length: " +
                     getSideLength() + "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
         }
-        return super.toString() + "\n \tWidth: " + width + "\n \tHeight: "+ height + "\n \tColor: " +
-                getColorAsHex() + "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
+        return super.toString() + "\n \tWidth: " + width + "\n \tHeight: "+ height +
+                "\n \tArea: " + area() + "\n \tPerimeter: " + perimeter() + "\n";
     }
 }

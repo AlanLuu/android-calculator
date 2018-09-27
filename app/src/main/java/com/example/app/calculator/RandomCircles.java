@@ -7,15 +7,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.util.CustomArrayList;
 
 import static com.util.Color.*;
 import static com.util.Utility.getRandomInt;
 
 public class RandomCircles extends View implements Runnable {
-    private List<Circle> circles = new ArrayList<>();
+    private CustomArrayList<Circle> circles = new CustomArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
             new Text("Tap the screen to add", 0, 50, 35, BLUE),
