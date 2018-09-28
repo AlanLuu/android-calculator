@@ -94,9 +94,6 @@ public class GravitySim extends View implements Runnable {
     public void run() {
         for (;;) {
             postInvalidate();
-            try {
-                Thread.sleep(1000 / 60);
-            } catch (InterruptedException e) {}
         }
     }
 }

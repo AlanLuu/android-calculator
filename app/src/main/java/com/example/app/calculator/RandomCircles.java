@@ -7,13 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.drawable.*;
-import com.util.CustomArrayList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.util.Color.*;
 import static com.util.Utility.getRandomInt;
 
 public class RandomCircles extends View implements Runnable {
-    private CustomArrayList<Circle> circles = new CustomArrayList<>();
+    private List<Circle> circles = new ArrayList<>();
     private Paint paint = new Paint();
     private Text[] moreCirclesText = {
             new Text("Tap the screen to add", 0, 50, 35, BLUE),
@@ -23,12 +25,12 @@ public class RandomCircles extends View implements Runnable {
     private int height;
     private int speedRange = 5;
 
-    public static final int STARTING_CIRCLES = 10;
+    public static final int STARTING_CIRCLES = valueOf("CYAN").ordinal() + 1;
 
     public RandomCircles(Context context) {
         super(context);
         for (int i = 0; i < STARTING_CIRCLES; i++) {
-            circles.add(randomCircle(0, 0, speedRange));
+            circles.add(new Circle(0, 0, getRandomInt(30, 50), values()[i], 0, 0));
         }
     }
 
@@ -40,6 +42,13 @@ public class RandomCircles extends View implements Runnable {
         for (Circle circle : circles) {
             circle.setX(getRandomInt((int) circle.getRadius(), this.width - 60));
             circle.setY(getRandomInt((int) circle.getRadius(), this.height - 60));
+            do {
+                circle.setXVelocity(getRandomInt(-speedRange, speedRange));
+            } while (circle.getXVelocity() > -speedRange / 2 && circle.getXVelocity() < speedRange / 2);
+
+            do {
+                circle.setYVelocity(getRandomInt(-speedRange, speedRange));
+            } while (circle.getYVelocity() > -speedRange / 2 && circle.getYVelocity() < speedRange / 2);
         }
     }
 
@@ -102,9 +111,6 @@ public class RandomCircles extends View implements Runnable {
     public void run() {
         for (;;) {
             postInvalidate();
-            try {
-                Thread.sleep(1000 / 60); //60fps
-            } catch (InterruptedException e) {}
         }
     }
 }
