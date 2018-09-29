@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               editTextSet("0");
+                editTextSet("0");
             }
         });
 
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.SIN;
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.COS;
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.TAN;
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                 if (editTextLength > 0 && (!Double.isNaN(valueOne) || (actionIsTrig()))) {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
-                        makeSnackbar(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
+                        makeSnackbar(view, "Cannot divide by 0", parseColor("#d12414"));
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
                         try {
@@ -442,8 +442,8 @@ public class MainActivity extends AppCompatActivity {
         binding.infoTextView.setText(null);
     }
 
-    private void makeSnackbar(View view, String text, int duration, int color) {
-        Snackbar snackbar = Snackbar.make(view, text, duration);
+    private void makeSnackbar(View view, String text, int color) {
+        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundColor(color);
         snackbar.show();
     }
