@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
         binding.buttonDeg.setText(mode == Action.DEG ? Action.DEG.toString() : Action.RAD.toString());
 
-        ActionBar actionbar = getSupportActionBar();
+        final ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -166,7 +166,12 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (actionIsTrig() && !calculationEnded) return;
+                String editText = binding.editText.getText().toString();
+                if (editText.length() > 0 && actionIsTrig()) {
+                    double result = Double.parseDouble(editText);
+                    valueOne = currentAction == Action.SIN ? Math.sin(result) :
+                            currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                }
                 computeCalculation();
                 currentAction = Action.ADDITION;
                 if (!Double.isNaN(valueOne) || calculationEnded) {
@@ -179,7 +184,12 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (actionIsTrig() && !calculationEnded) return;
+                String editText = binding.editText.getText().toString();
+                if (editText.length() > 0 && actionIsTrig()) {
+                    double result = Double.parseDouble(editText);
+                    valueOne = currentAction == Action.SIN ? Math.sin(result) :
+                            currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                }
                 computeCalculation();
                 currentAction = Action.SUBTRACTION;
                 if (!Double.isNaN(valueOne) || calculationEnded) {
@@ -192,7 +202,12 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (actionIsTrig() && !calculationEnded) return;
+                String editText = binding.editText.getText().toString();
+                if (editText.length() > 0 && actionIsTrig()) {
+                    double result = Double.parseDouble(editText);
+                    valueOne = currentAction == Action.SIN ? Math.sin(result) :
+                            currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                }
                 computeCalculation();
                 currentAction = Action.MULTIPLICATION;
                 if (!Double.isNaN(valueOne) || calculationEnded) {
@@ -205,7 +220,12 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (actionIsTrig() && !calculationEnded) return;
+                String editText = binding.editText.getText().toString();
+                if (editText.length() > 0 && actionIsTrig()) {
+                    double result = Double.parseDouble(editText);
+                    valueOne = currentAction == Action.SIN ? Math.sin(result) :
+                            currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                }
                 computeCalculation();
                 currentAction = Action.DIVISION;
                 if (!Double.isNaN(valueOne) || calculationEnded) {
@@ -219,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
+                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.SIN;
@@ -231,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
+                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.COS;
@@ -243,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    Snackbar.make(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT).show();
+                    makeSnackbar(view, "Trigonometry is disabled", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.TAN;
@@ -264,14 +284,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int editTextLength = binding.editText.getText().length();
                 String infoText = binding.infoTextView.getText().toString();
+                String editText = binding.editText.getText().toString();
                 boolean actionSelected = infoText.contains("+") || infoText.contains("-")
                         || infoText.contains("*") || infoText.contains("/");
                 if (editTextLength > 0 && (!Double.isNaN(valueOne) || (actionIsTrig()))) {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
-                        Snackbar snackbar = Snackbar.make(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT);
-                        snackbar.getView().setBackgroundColor(parseColor("#d12414"));
-                        snackbar.show();
+                        makeSnackbar(view, "Cannot divide by 0", Snackbar.LENGTH_SHORT, parseColor("#d12414"));
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
                         try {
@@ -295,7 +314,16 @@ public class MainActivity extends AppCompatActivity {
                         valueTwo = Double.NaN;
                         currentAction = Action.NONE;
                     }
-                } else if (editTextLength > 0 || actionSelected) {
+                } else if (editTextLength > 0) {
+                    if (editText.contains(".") && editText.substring(editText.length() - 1).equals(".")) {
+                        computeCalculation();
+                        return;
+                    }
+                    binding.infoTextView.setText(editText + " = " + editText);
+                    calculationEnded = true;
+                    valueOne = Double.NaN;
+                    valueTwo = Double.NaN;
+                } else if (actionSelected) {
                     Snackbar.make(view, "Bad expression", Snackbar.LENGTH_SHORT).show();
                     clearAll();
                 }
@@ -412,6 +440,12 @@ public class MainActivity extends AppCompatActivity {
         calculationEnded = false;
         binding.editText.setText(null);
         binding.infoTextView.setText(null);
+    }
+
+    private void makeSnackbar(View view, String text, int duration, int color) {
+        Snackbar snackbar = Snackbar.make(view, text, duration);
+        snackbar.getView().setBackgroundColor(color);
+        snackbar.show();
     }
 
     private void computeTrig(Action action, Action theMode) {
