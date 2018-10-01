@@ -38,8 +38,7 @@ public final class Utility {
                 String[] TO = {builder.toString()};
 
                 Intent email = new Intent(Intent.ACTION_SEND);
-                email.setData(Uri.parse("mailto:"));
-                email.setType("message/rfc822");
+                email.setDataAndType(Uri.parse("mailto:"), "message/rfc822");
                 email.putExtra(Intent.EXTRA_EMAIL, TO);
                 email.putExtra(Intent.EXTRA_SUBJECT, "Error report");
                 email.putExtra(Intent.EXTRA_TEXT, e.toString() + "\n\n" + Arrays.toString(e.getStackTrace()));
@@ -59,8 +58,7 @@ public final class Utility {
         String[] TO = {to};
 
         Intent email = new Intent(Intent.ACTION_SEND);
-        email.setData(Uri.parse("mailto:"));
-        email.setType("message/rfc822");
+        email.setDataAndType(Uri.parse("mailto:"), "message/rfc822");
         email.putExtra(Intent.EXTRA_EMAIL, TO);
         if (noNullInArray(cc)) {
             email.putExtra(Intent.EXTRA_CC, cc);
@@ -83,9 +81,8 @@ public final class Utility {
     }
 
     public static int getRandomInt(int min, int max) {
-        if (min >= max || max <= min) {
-            throw new IllegalArgumentException(min >= max ? "Error: min cannot be greater than or equal to max."
-                    : "Error: max cannot be less than or equal to min.");
+        if (min >= max) {
+            throw new IllegalArgumentException("Error: min cannot be greater than or equal to max.");
         }
         return (int) (Math.random() * (max - min + 1)) + min;
     }
