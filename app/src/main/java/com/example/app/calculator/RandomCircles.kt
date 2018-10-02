@@ -23,7 +23,7 @@ class RandomCircles(context: Context) : View(context), Runnable {
     private val speedRange = 5
 
     init {
-        for (i in 0..STARTING_CIRCLES) {
+        for (i in 0 until STARTING_CIRCLES) {
             circles.add(Circle(0.0, 0.0, getRandomInt(30, 50).toDouble(), Color.values()[i]))
         }
     }
@@ -72,7 +72,7 @@ class RandomCircles(context: Context) : View(context), Runnable {
                 circle.yVelocity = -circle.yVelocity
             }
         }
-        if (circles.size <= STARTING_CIRCLES + 11) {
+        if (circles.size <= STARTING_CIRCLES + 10) {
             for (text in moreCirclesText) {
                 text.draw(canvas, paint)
             }
