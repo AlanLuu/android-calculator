@@ -7,9 +7,9 @@ import android.view.MotionEvent
 import android.view.View
 
 import com.drawable.*
+import com.util.Color
 import com.util.Gravity
 
-import com.util.Color
 import com.util.Utility.getRandomInt
 
 class GravitySim(context: Context) : View(context), Runnable {
