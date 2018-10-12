@@ -15,12 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
+import com.util.Color;
 import com.util.Settings;
 import com.util.Utility;
 
 import java.text.DecimalFormat;
-
-import static com.util.Color.parseColor;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
         binding.buttonDeg.setText(mode == Action.DEG ? Action.DEG.toString() : Action.RAD.toString());
 
-        final ActionBar actionbar = getSupportActionBar();
+        ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -239,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", Color.Companion.parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.SIN;
@@ -251,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", Color.Companion.parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.COS;
@@ -263,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settings[1].isSwitchOn()) {
-                    makeSnackbar(view, "Trigonometry is disabled", parseColor("#d12414"));
+                    makeSnackbar(view, "Trigonometry is disabled", Color.Companion.parseColor("#d12414"));
                     return;
                 }
                 currentAction = Action.TAN;
@@ -290,12 +289,11 @@ public class MainActivity extends AppCompatActivity {
                 if (editTextLength > 0 && (!Double.isNaN(valueOne) || (actionIsTrig()))) {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
-                        makeSnackbar(view, "Cannot divide by 0", parseColor("#d12414"));
+                        makeSnackbar(view, "Cannot divide by 0", Color.Companion.parseColor("#d12414"));
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
                         try {
-                            binding.infoTextView.setText(binding.infoTextView.getText().toString() +
-                                    decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
+                            binding.infoTextView.setText(infoText + decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
                         } catch (ArithmeticException e) {
                             handleException(e);
                         }
@@ -319,7 +317,12 @@ public class MainActivity extends AppCompatActivity {
                         computeCalculation();
                         return;
                     }
-                    binding.infoTextView.setText(editText + " = " + editText);
+                    if (editText.substring(0, 1).equals(".")) {
+                        String newStr = "0" + editText;
+                        binding.infoTextView.setText(newStr + " = " + newStr);
+                    } else {
+                        binding.infoTextView.setText(editText + " = " + editText);
+                    }
                     calculationEnded = true;
                     valueOne = Double.NaN;
                     valueTwo = Double.NaN;
@@ -350,18 +353,17 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 if (copyOfCalculationEnded || originalInfoText.length() > 0) calculationEnded = true;
-                                updateCurrentAction(copyOfCurrentAction);
+                                MainActivity.this.currentAction = copyOfCurrentAction;
                                 binding.infoTextView.setText(originalInfoText);
                                 binding.editText.setText(editText);
                                 Snackbar.make(view, "Undo successful", Snackbar.LENGTH_SHORT).show();
                             }
                         });
-                        snackbar.setActionTextColor(parseColor("#46bdbf"));
+                        snackbar.setActionTextColor(Color.Companion.parseColor("#46bdbf"));
                     }
                     snackbar.show();
                     clearAll();
                 }
-
             }
         });
     }
@@ -370,7 +372,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -474,11 +480,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleException(Throwable e) {
-        Utility.handleException(getApplicationContext(), this, findViewById(R.id.activity_main), e);
-    }
-
-    private void updateCurrentAction(Action currentAction) {
-        this.currentAction = currentAction;
+        Utility.INSTANCE.handleException(getApplicationContext(), this, findViewById(R.id.activity_main), e);
     }
 
     private boolean actionIsTrig() {

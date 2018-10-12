@@ -8,10 +8,9 @@ import android.view.View
 
 import com.drawable.*
 import com.util.Color
+import com.util.Utility.getRandomInt
 
 import java.util.ArrayList
-
-import com.util.Utility.getRandomInt
 
 class RandomCircles(context: Context) : View(context), Runnable {
     private val circles = ArrayList<Circle>()
@@ -90,7 +89,7 @@ class RandomCircles(context: Context) : View(context), Runnable {
             randYVel = getRandomInt(-range, range)
         } while (randYVel > -range / 2 && randYVel < range / 2)
 
-        return Circle(x, y, getRandomInt(30, 50).toDouble(), Color.getRandomColor(), randXVel.toDouble(), randYVel.toDouble())
+        return Circle(x, y, getRandomInt(30, 50).toDouble(), Color.randomColor, randXVel.toDouble(), randYVel.toDouble())
     }
 
     override fun run() {

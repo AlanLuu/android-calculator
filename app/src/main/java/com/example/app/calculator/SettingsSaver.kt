@@ -13,10 +13,6 @@ class SettingsSaver : Application() {
         settings.add(Settings())
     }
 
-    fun clearSettings() {
-        settings.clear()
-    }
-
     fun getSettings(index: Int): Settings {
         if (settings.size == 0) {
             settings.add(Settings())

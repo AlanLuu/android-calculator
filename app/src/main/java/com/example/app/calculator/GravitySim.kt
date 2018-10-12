@@ -42,8 +42,8 @@ class GravitySim(context: Context) : View(context), Runnable {
                 d.x = x.toDouble()
                 d.y = y.toDouble()
                 if (d is ComplexDrawable) {
-                    d.x2 = d.getX() + (d.x2 - d.getX())
-                    d.y2 = d.getY() + (d.y2 - d.getY())
+                    d.x2 = d.x + (d.x2 - d.x)
+                    d.y2 = d.y + (d.y2 - d.y)
                 }
             }
             if (e.action == MotionEvent.ACTION_MOVE) {
