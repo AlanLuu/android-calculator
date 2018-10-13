@@ -22,7 +22,7 @@ open class Triangle : Drawable, Shape {
     constructor(x: Double, y: Double, sideLengths: DoubleArray, color: Color) :
             this(x, y, sideLengths, color.int, 0.0, 0.0)
 
-    @JvmOverloads constructor(x: Double, y: Double, sideLengths: DoubleArray, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
+    constructor(x: Double, y: Double, sideLengths: DoubleArray, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
             super(x, y, color, xVelocity, yVelocity) {
         if (this !is RightTriangle) {
             val triangleExists = (sideLengths[0] + sideLengths[1] > sideLengths[2]

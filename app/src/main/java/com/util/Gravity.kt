@@ -2,9 +2,14 @@ package com.util
 
 import com.drawable.*
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+import java.util.Arrays
+
+@Suppress("unused")
 class Gravity {
-    var drawables: FinalArray<Drawable>? = null
+    var drawables: Array<Drawable>
+        get() {
+            return Arrays.copyOf(field, field.size)
+        }
         private set
     var gravity: Double = 0.0
     private var canvasWidth: Int = 0
@@ -13,12 +18,13 @@ class Gravity {
     constructor(drawable: Drawable, gravity: Double) : this(arrayOf<Drawable>(drawable), gravity)
 
     constructor(drawables: Array<Drawable>, gravity: Double) {
-        this.drawables = FinalArray.from(drawables)
+        this.drawables = drawables
         this.gravity = gravity
     }
 
-    constructor(drawables: List<Drawable>, gravity: Double) {
-        this.drawables = FinalArray.from(drawables.toTypedArray())
+    constructor(drawables: ArrayList<Drawable>, gravity: Double) {
+        @Suppress("UNCHECKED_CAST")
+        this.drawables = drawables.toArray() as Array<Drawable>
         this.gravity = gravity
     }
 
@@ -148,24 +154,26 @@ class Gravity {
         this.canvasWidth = canvasWidth
         this.canvasHeight = canvasHeight
 
-        for (d in drawables!!) {
+        for (d in drawables) {
             d.yVelocity += gravity
 
-            //Compiler automatically does a downcast here
-            if (d is Circle) {
-                manage(d)
-            } else if (d is Rectangle) {
-                manage(d)
-            } else if (d is Text) {
-                manage(d)
-            } else if (d is Triangle && d !is RightTriangle) {
-                manage(d)
-            } else if (d is RightTriangle) {
-                manage(d)
-            } else if (d is Line) {
-                manage(d)
+            /*
+            Compiler automatically does a downcast here
+            https://kotlinlang.org/docs/reference/typecasts.html#smart-casts
+             */
+            when (d) {
+                is Circle -> manage(d)
+                is Rectangle -> manage(d)
+                is Text -> manage(d)
+                is Triangle -> {
+                    if (d !is RightTriangle) {
+                        manage(d)
+                    } else {
+                        manage(d)
+                    }
+                }
+                is Line -> manage(d)
             }
-
         }
     }
 }

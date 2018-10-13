@@ -14,7 +14,7 @@ class Line : ComplexDrawable {
     constructor(x1: Double, y1: Double, x2: Double, y2: Double, lineSize: Double, color: Color) :
             this(x1, y1, x2, y2, lineSize, color.int, 0.0, 0.0)
 
-    @JvmOverloads constructor(x1: Double, y1: Double, x2: Double, y2: Double, lineSize: Double, color: Int, xVelocity: Double = 0.0,
+    constructor(x1: Double, y1: Double, x2: Double, y2: Double, lineSize: Double, color: Int, xVelocity: Double = 0.0,
                               yVelocity: Double = 0.0) : super(x1, y1, x2, y2, color, xVelocity, yVelocity) {
         this.lineSize = lineSize
     }

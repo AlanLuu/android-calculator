@@ -23,7 +23,7 @@ abstract class Drawable
     }
 
     fun setColor(color: String) {
-        var color = color;
+        var color = color
         if (color.substring(0, 1) != "#") {
             color = "#$color"
         }

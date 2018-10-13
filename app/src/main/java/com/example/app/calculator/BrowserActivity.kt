@@ -10,7 +10,6 @@ import com.example.app.calculator.databinding.ActivityBrowserBinding
 import com.util.Webpage
 
 class BrowserActivity : AppCompatActivity() {
-
     private val context: Context
         get() = this
 
@@ -28,21 +27,15 @@ class BrowserActivity : AppCompatActivity() {
         }
 
         binding.aboutMe.setOnClickListener {
-            val aboutTheDev = Webpage(context, activity,
-                    "https://alanluu.github.io", true)
-            aboutTheDev.build()
+            Webpage(context, activity, "https://alanluu.github.io").build()
         }
 
         binding.circleCanvas.setOnClickListener {
-            val circleCanvas = Webpage(context, activity,
-                    "https://alanluu.github.io/circle-canvas", false)
-            circleCanvas.build()
+            Webpage(context, activity, "https://alanluu.github.io/circle-canvas", false).build()
         }
 
         binding.github.setOnClickListener {
-            val githubRepo = Webpage(context, activity,
-                    "https://github.com/AlanLuu/android-calculator", false)
-            githubRepo.build()
+            Webpage(context, activity, "https://github.com/AlanLuu/android-calculator", false).build()
         }
 
         binding.gravity.setOnClickListener {

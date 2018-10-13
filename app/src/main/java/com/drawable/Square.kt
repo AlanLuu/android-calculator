@@ -7,7 +7,7 @@ class Square : Rectangle {
 
     constructor(x: Double, y: Double, sideLength: Int, color: Color) : this(x, y, sideLength, color.int, 0.0, 0.0)
 
-    @JvmOverloads constructor(x: Double, y: Double, sideLength: Int, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
+    constructor(x: Double, y: Double, sideLength: Int, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
             super(x, y, sideLength, sideLength, color, xVelocity, yVelocity)
 
     constructor(x: Double, y: Double, sideLength: Int, color: Color, xVelocity: Double, yVelocity: Double) :

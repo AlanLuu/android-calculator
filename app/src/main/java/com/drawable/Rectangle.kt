@@ -19,10 +19,9 @@ open class Rectangle : Drawable, Shape {
             height = sideLength
         }
 
-
     constructor(x: Double, y: Double, width: Int, height: Int, color: Color) : this(x, y, width, height, color.int, 0.0, 0.0)
 
-    @JvmOverloads constructor(x: Double, y: Double, width: Int, height: Int, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
+    constructor(x: Double, y: Double, width: Int, height: Int, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
             super(x, y, color, xVelocity, yVelocity) {
         this.width = width
         this.height = height

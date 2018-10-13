@@ -13,7 +13,7 @@ import com.util.Gravity
 import com.util.Utility.getRandomInt
 
 class GravitySim(context: Context) : View(context), Runnable {
-    private val shapeArr = arrayOf<Drawable>(
+    private val shapeArr: Array<Drawable> = arrayOf(
             Circle(100.0, 100.0, 40.0, Color.parseColor("#33c446"), 2.0, 0.0),
             Circle(200.0, 100.0, 40.0, Color.RED, 2.0, 0.0),
             Square(300.0, 100.0, 50, Color.MAGENTA), RightTriangle(100.0, 100.0,

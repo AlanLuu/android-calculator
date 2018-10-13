@@ -13,7 +13,6 @@ class Circle : Drawable, Shape {
 
     constructor(x: Double, y: Double, radius: Double, color: Color) : this(x, y, radius, color.int, 0.0, 0.0)
 
-    @JvmOverloads
     constructor(x: Double, y: Double, radius: Double, color: Int, xVelocity: Double = 0.0, yVelocity: Double = 0.0) :
             super(x, y, color, xVelocity, yVelocity) {
         this.radius = radius

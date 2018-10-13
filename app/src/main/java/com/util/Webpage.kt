@@ -6,26 +6,21 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
-class Webpage(val context: Context, private val activity: Activity, url: String, var isWebView: Boolean) {
-    var url: String = ""
-
-    init {
-        this.url = url
-    }
-
-    constructor(activity: Activity, context: Context, url: String, isWebView: Boolean) : this(context, activity, url, isWebView)
-
+@Suppress("MemberVisibilityCanBePrivate")
+class Webpage(val context: Context, private val activity: Activity, var url: String, var isWebView: Boolean = true,
+              var javaScriptEnabled: Boolean = true) {
     @SuppressLint("SetJavaScriptEnabled")
     fun build() {
         if (isWebView) {
             val webView = WebView(context)
             webView.loadUrl(url)
-            webView.settings.javaScriptEnabled = true
+            webView.settings.javaScriptEnabled = javaScriptEnabled
             webView.webViewClient = WebViewClient()
+            webView.webChromeClient = WebChromeClient()
             activity.setContentView(webView)
         } else {
             AlertDialog.Builder(context).setTitle("Notice")
@@ -37,9 +32,5 @@ class Webpage(val context: Context, private val activity: Activity, url: String,
                         activity.startActivity(intent)
                     }.create().show()
         }
-    }
-
-    override fun toString(): String {
-        return "URL: " + this.url + ", Is it a WebView? " + if (this.isWebView) "Yes" else "No"
     }
 }
