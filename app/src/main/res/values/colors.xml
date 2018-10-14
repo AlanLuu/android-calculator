@@ -4,5 +4,8 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
-    <color name="lightblue">#0b92e0</color>
+    <color name="light_blue">#0b92e0</color>
+    <color name="lighter_black">#333333</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="silver">#C0C0C0</color>
 </resources>

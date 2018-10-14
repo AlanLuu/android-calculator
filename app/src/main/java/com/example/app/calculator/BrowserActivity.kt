@@ -31,6 +31,7 @@ class BrowserActivity : AppCompatActivity() {
                 "Github repo",
                 "Following circle",
                 "Go to YouTube",
+                "Random Wikipedia article",
                 "Gravity simulator",
                 "Random circles"
         )
@@ -42,7 +43,7 @@ class BrowserActivity : AppCompatActivity() {
             when (text) {
                 "About the creator" -> {
                     actionbar.hide()
-                    Webpage(context, activity, "https://alanluu.github.io").build()
+                    Webpage(context, activity, "file:///android_asset/about.html").build()
                 }
                 "Github repo" -> {
                     Webpage(context, activity, "https://github.com/AlanLuu/android-calculator",
@@ -50,11 +51,16 @@ class BrowserActivity : AppCompatActivity() {
                 }
                 "Following circle" -> {
                     actionbar.hide()
-                    Webpage(context, activity, "https://alanluu.github.io/circle-canvas/").build()
+                    Webpage(context, activity, "https://alanluu.github.io/circle-canvas/",
+                            javaScriptEnabled = true).build()
                 }
                 "Go to YouTube" -> {
                     actionbar.hide()
-                    Webpage(context, activity, "https://www.youtube.com").build()
+                    Webpage(context, activity, "https://www.youtube.com", javaScriptEnabled = true).build()
+                }
+                "Random Wikipedia article" -> {
+                    actionbar.hide()
+                    Webpage(context, activity, "https://en.wikipedia.org/wiki/Special:Random").build()
                 }
                 "Gravity simulator" -> {
                     actionbar.title = "Gravity simulator"

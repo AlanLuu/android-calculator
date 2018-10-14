@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html {
+                min-height: 100%;
+            }
+            body {
+                /*background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);*/
+                color: #333333;
+            }
+            #title {
+                text-align: center;
+                border: 1px groove;
+                border-color: black;
+                padding: 10px;
+                box-shadow: 10px 5px gray;
+            }
+            #name {
+                display: block;
+                font-size: 3em;
+                margin: 0.67em 0 0.67em 0;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title">
+            <p id="name">Alan Luu</p>
+        </div>
+
+        <h2>My name is Alan Luu, and I'm a high schooler who really enjoys programming.</h2>
+        <hr/>
+
+        <div class="main">
+            <div id="projects">
+                <h1 style="text-decoration: underline;">Projects I've made or contributed to</h1>
+                <div class="projectswithpics">
+                    <p>
+                        This calculator app.
+                    </p>
+                    <p>
+                        This app also includes various code projects I've worked on during my spare time,
+                        such as a sandbox with random primitive
+                        shapes in a canvas, and a gravity simulator. There are also links to other projects
+                        hosted on the web that I've included.
+                        Feel free to ignore them.
+                    </p>
+
+                    <h2>Known bugs:</h2>
+                    <ul>
+                        <li>Settings don't save when the user quits the app.</li>
+                        <li>Trigonometric functions on the calculator don't have full support with the four
+                            arithmetic operations.
+                        </li>
+                    </ul>
+                </div>
+
+                <hr/>
+
+                <div class="projectswithpics">
+                    <p>
+                        An HTML canvas with a circle that follows the user's mouse cursor. The background
+                        colors are
+                        different depending on the time of day the user visits this website. The circle also
+                        changes to
+                        a random color every four seconds.
+                    </p>
+                    <p>
+                        These things are all accomplished using JavaScript, jQuery, and CSS keyframes,
+                        which are being used to switch between two slightly different background colors.
+                    </p>
+                </div>
+
+                <hr/>
+
+                <div class="projectswithpics">
+                    <p>
+                        Patriotic Pirates: An educational web app where teachers can create multiplayer math
+                        competitions.
+                        Similar to Kahoot and Quizlet Live, students use their computer in order to
+                        participate
+                        in a game session. However, rather than consisting of a series of multiple choice
+                        questions,
+                        it provides free response questions where students must show their work in order to
+                        support their answer. Teachers can evaluate the responses based on their explanation
+                        and answer,
+                        allowing them to better assess their students’ progress in the classroom. After the
+                        game is
+                        over, a leaderboard displays the top students’ name and score, promoting healthy
+                        competition
+                        among students.
+                    </p>
+                    <p>
+                        For the frontend, the Desmos API is
+                        utilized in this app in order to allow students to submit graphs, along with MathJax
+                        to render beautiful math symbols in HTML, and LaTex for student and teacher input.
+                        Node.js is used as the backend, along with Express.Js handling the routing of the
+                        app’s webpage, and Socket.IO to allow participation from multiple students in a
+                        single game session.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

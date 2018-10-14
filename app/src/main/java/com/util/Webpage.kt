@@ -12,7 +12,7 @@ import android.webkit.WebViewClient
 
 @Suppress("MemberVisibilityCanBePrivate")
 class Webpage(val context: Context, private val activity: Activity, var url: String, var isWebView: Boolean = true,
-              var javaScriptEnabled: Boolean = true) {
+              var javaScriptEnabled: Boolean = false) {
     @SuppressLint("SetJavaScriptEnabled")
     fun build() {
         if (isWebView) {
