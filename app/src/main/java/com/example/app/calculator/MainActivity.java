@@ -1,6 +1,7 @@
 package com.example.app.calculator;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, com.example.app.calculator.R.layout.activity_main);
         binding.buttonDeg.setText(mode == Action.DEG ? Action.DEG.toString() : Action.RAD.toString());
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
@@ -77,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.next_button:
                         startActivity(new Intent(getApplicationContext(), BrowserActivity.class));
+                        break;
+                    case R.id.contact_button:
+                        int[] intArr = {97, 108, 97, 110, 108, 117, 117, 52, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109};
+                        StringBuilder builder = new StringBuilder();
+                        for (int i : intArr) {
+                            builder.append((char) i);
+                        }
+                        Utility.INSTANCE.sendEmail(getApplicationContext(), getActivity(), builder.toString());
                         break;
                 }
                 return true;
@@ -481,6 +492,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleException(Throwable e) {
         Utility.INSTANCE.handleException(getApplicationContext(), this, findViewById(R.id.activity_main), e);
+    }
+
+    private Activity getActivity() {
+        return this;
     }
 
     private boolean actionIsTrig() {

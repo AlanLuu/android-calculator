@@ -14,7 +14,7 @@ import java.util.Arrays
 /**
  * Provides various static methods to make my life easier.
  */
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 object Utility {
     fun handleException(context: Context, activity: Activity, view: View, e: Throwable) {
         val errorSnackbar = Snackbar.make(view, "Oops, something went wrong.", Snackbar.LENGTH_INDEFINITE)
@@ -39,27 +39,23 @@ object Utility {
         errorSnackbar.show()
     }
 
-    fun sendEmail(context: Context, activity: Activity, to: String, vararg cc: String?) {
+    fun sendEmail(context: Context, activity: Activity, to: String, vararg cc: String) {
         val email = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$to"))
-        if (noNullInArray(cc)) {
-            email.putExtra(Intent.EXTRA_CC, cc)
-        }
+        email.putExtra(Intent.EXTRA_CC, cc)
 
         try {
             activity.startActivity(Intent.createChooser(email, "Send email"))
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(context, "There is no email client installed on this device.", Toast.LENGTH_SHORT).show()
         }
-
     }
 
-    fun noNullInArray(arr: Array<out String?>): Boolean {
-        for (s in arr) {
-            if (s == null) {
-                return false
-            }
-        }
-        return true
+    fun share(activity: Activity, subject: String, text: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        activity.startActivity(Intent.createChooser(intent, "Share"))
     }
 
     fun getRandomInt(min: Int, max: Int): Int {
@@ -89,5 +85,4 @@ object Utility {
         }
         return -1
     }
-
 }

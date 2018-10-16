@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/settings_button"
-        android:title="Settings"/>
+        android:title="@string/settings"/>
     <item
         android:id="@+id/next_button"
-        android:title="More from this app's creator" />
+        android:title="@string/morefrom" />
+
+    <item android:id="@+id/contact_button"
+        android:title="@string/contact"/>
 </menu>

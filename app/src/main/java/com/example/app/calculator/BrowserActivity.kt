@@ -27,7 +27,7 @@ class BrowserActivity : AppCompatActivity() {
         actionbar.setHomeAsUpIndicator(null)
 
         val myItems: Array<String> = arrayOf(
-                "About the creator",
+                "About the developer",
                 "Github repo",
                 "Following circle",
                 "Go to YouTube",
@@ -41,7 +41,7 @@ class BrowserActivity : AppCompatActivity() {
         binding.listView.setOnItemClickListener {_, view, _, _ ->
             val text = (view as TextView).text
             when (text) {
-                "About the creator" -> {
+                "About the developer" -> {
                     actionbar.hide()
                     Webpage(context, activity, "file:///android_asset/about.html").build()
                 }
