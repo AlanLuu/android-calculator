@@ -1,8 +1,10 @@
 package com.util
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.support.design.widget.Snackbar
@@ -39,8 +41,25 @@ object Utility {
         errorSnackbar.show()
     }
 
-    fun sendEmail(context: Context, activity: Activity, to: String, vararg cc: String) {
+    fun alert(context: Context, message: String) {
+        val alert = AlertDialog.Builder(context)
+        alert.setMessage(message)
+        alert.setPositiveButton(android.R.string.yes, null)
+        alert.show()
+    }
+
+    fun confirm(context: Context, title: String, message: String, listener: (dialog: DialogInterface, which: Int) -> Unit) {
+        val alert = AlertDialog.Builder(context)
+        alert.setTitle(title)
+        alert.setMessage(message)
+        alert.setNegativeButton(android.R.string.no, null)
+        alert.setPositiveButton(android.R.string.yes, listener)
+        alert.show()
+    }
+
+    fun sendEmail(to: String, subject: String, context: Context, activity: Activity, vararg cc: String) {
         val email = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$to"))
+        email.putExtra(Intent.EXTRA_SUBJECT, subject)
         email.putExtra(Intent.EXTRA_CC, cc)
 
         try {
@@ -48,6 +67,10 @@ object Utility {
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(context, "There is no email client installed on this device.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun sendEmail(to: String, context: Context, activity: Activity, vararg cc: String) {
+        sendEmail(to, "", context, activity, *cc)
     }
 
     fun share(activity: Activity, subject: String, text: String) {
@@ -65,7 +88,7 @@ object Utility {
         return (Math.random() * (max - min + 1)).toInt() + min
     }
 
-    fun findInt(arr: IntArray, target: Int): Int {
+    fun binarySearch(arr: IntArray, target: Int): Int {
         var min = 0
         var max = arr.size - 1
 

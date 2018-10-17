@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonDeg.setText(mode == Action.DEG ? Action.DEG.toString() : Action.RAD.toString());
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        ActionBar actionbar = getSupportActionBar();
+        final ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         for (int i : intArr) {
                             builder.append((char) i);
                         }
-                        Utility.INSTANCE.sendEmail(getApplicationContext(), getActivity(), builder.toString());
+                        Utility.INSTANCE.sendEmail(builder.toString(), "Android calculator",
+                                getApplicationContext(), getActivity());
                         break;
                 }
                 return true;

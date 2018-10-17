@@ -23,11 +23,11 @@
         </activity>
         <activity
             android:name=".BrowserActivity"
-            android:label="@string/title_activity_browser"
+            android:label="@string/morefrom"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".SettingsActivity"
-            android:label="Settings"
+            android:label="@string/settings"
             android:theme="@style/AppTheme"/>
     </application>
 </manifest>
