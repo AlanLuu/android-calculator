@@ -3,6 +3,7 @@ package com.example.app.calculator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.app.calculator.databinding.ActivityMainBinding;
 import com.util.Color;
@@ -354,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                 String infoText = binding.infoTextView.getText().toString();
                 if ((editTextLength > 1 && infoText.equals("")) || (editTextLength > 0 && !infoText.equals(""))) {
                     binding.editText.setText(editText.subSequence(0, editTextLength - 1));
-                } else {
+                } else if (isPortrait() || isLandscape() && calculationEnded) {
                     Snackbar snackbar = Snackbar.make(view, "Cleared all", settings[0].isSwitchOn() || calculationEnded
                             ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
                     if (settings[0].isSwitchOn() || calculationEnded) {
@@ -374,6 +376,9 @@ public class MainActivity extends AppCompatActivity {
                         snackbar.setActionTextColor(Color.Companion.parseColor("#46bdbf"));
                     }
                     snackbar.show();
+                    clearAll();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cleared all", Toast.LENGTH_SHORT).show();
                     clearAll();
                 }
             }
@@ -497,6 +502,14 @@ public class MainActivity extends AppCompatActivity {
 
     private Activity getActivity() {
         return this;
+    }
+
+    private boolean isPortrait() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
+
+    private boolean isLandscape() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private boolean actionIsTrig() {

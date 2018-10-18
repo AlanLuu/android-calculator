@@ -30,7 +30,7 @@ class BrowserActivity : AppCompatActivity() {
                 "About the developer",
                 "Github repo",
                 "Following circle",
-                "Go to YouTube",
+                "YouTube's home page",
                 "Random Wikipedia article",
                 "Gravity simulator",
                 "Random circles"
@@ -54,7 +54,7 @@ class BrowserActivity : AppCompatActivity() {
                     Webpage(context, activity, "https://alanluu.github.io/circle-canvas/",
                             javaScriptEnabled = true).build()
                 }
-                "Go to YouTube" -> {
+                "YouTube's home page" -> {
                     actionbar.hide()
                     Webpage(context, activity, "https://www.youtube.com", javaScriptEnabled = true).build()
                 }
@@ -74,7 +74,9 @@ class BrowserActivity : AppCompatActivity() {
                     setContentView(r)
                     Thread(r).start()
                 }
-                else -> Toast.makeText(context, "Invalid option", Toast.LENGTH_SHORT).show() //Should never happen
+                else -> {
+                    Toast.makeText(context, "Invalid option", Toast.LENGTH_SHORT).show() //Should never happen
+                }
             }
         }
     }
