@@ -31,9 +31,11 @@
     <string name="settings">Settings</string>
     <string name="morefrom">More from this app\'s developer</string>
     <string name="contact">Contact the developer</string>
+    <string name="share">Share this app</string>
 
     <!-- Switches text -->
-    <string name="undoSwitch">Allow the ability to undo a clear before finishing a calculation
+    <string name="settingsdontsave">Note: This is a beta feature, so settings won\'t be saved when you close the app.</string>
+    <string name="undoSwitch">Allows the ability to undo a clear before finishing a calculation
         (Beta feature, might mess up the user experience)</string>
     <string name="disableTrigSwitch">Disable trigonometry functions</string>
 </resources>

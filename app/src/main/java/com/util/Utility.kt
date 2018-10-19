@@ -16,7 +16,7 @@ import java.util.Arrays
 /**
  * Provides various static methods to make my life easier.
  */
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object Utility {
     fun handleException(context: Context, activity: Activity, view: View, e: Throwable) {
         val errorSnackbar = Snackbar.make(view, "Oops, something went wrong.", Snackbar.LENGTH_INDEFINITE)
@@ -28,8 +28,7 @@ object Utility {
             }
 
             val email = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + builder.toString()))
-            email.putExtra(Intent.EXTRA_SUBJECT, "Error report")
-            email.putExtra(Intent.EXTRA_TEXT, e.toString() + "\n\n" + Arrays.toString(e.stackTrace))
+            email.putExtra(Intent.EXTRA_TEXT, versionInfo(context) + "\n" + e.toString() + "\n\n" + Arrays.toString(e.stackTrace))
 
             try {
                 activity.startActivity(Intent.createChooser(email, "Send email"))
@@ -57,10 +56,11 @@ object Utility {
         alert.show()
     }
 
-    fun sendEmail(to: String, subject: String, context: Context, activity: Activity, vararg cc: String) {
+    fun sendEmail(to: String, subject: String, body: String, context: Context, activity: Activity, vararg cc: String) {
         val email = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$to"))
         email.putExtra(Intent.EXTRA_SUBJECT, subject)
         email.putExtra(Intent.EXTRA_CC, cc)
+        email.putExtra(Intent.EXTRA_TEXT, body)
 
         try {
             activity.startActivity(Intent.createChooser(email, "Send email"))
@@ -69,8 +69,8 @@ object Utility {
         }
     }
 
-    fun sendEmail(to: String, context: Context, activity: Activity, vararg cc: String) {
-        sendEmail(to, "", context, activity, *cc)
+    fun sendDebugEmail(to: String, subject: String, context: Context, activity: Activity, vararg cc: String) {
+        sendEmail(to, subject, versionInfo(context), context, activity, *cc)
     }
 
     fun share(activity: Activity, subject: String, text: String) {
@@ -86,6 +86,13 @@ object Utility {
             throw IllegalArgumentException("Error: min cannot be greater than or equal to max.")
         }
         return (Math.random() * (max - min + 1)).toInt() + min
+    }
+
+    fun versionInfo(context: Context): String {
+        val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        return "App version: ${pInfo.versionName}\n" +
+                "Android version: ${android.os.Build.VERSION.RELEASE}\n" +
+                "-----------------------------------\n"
     }
 
     fun binarySearch(arr: IntArray, target: Int): Int {

@@ -284,6 +284,17 @@
                 android:text="@string/rad"
                 android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/buttonNegative"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subtract"
+                android:layout_below="@+id/buttonCos"
+                android:layout_toRightOf="@+id/buttonDeg"
+                android:layout_toEndOf="@+id/buttonDeg"
+                android:textSize="20sp"/>
+
         </RelativeLayout>
 
         <android.support.design.widget.NavigationView

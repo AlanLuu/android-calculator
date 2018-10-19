@@ -316,17 +316,27 @@
             <Button
                 android:id="@+id/buttonDeg"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                android:layout_width="77dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/buttonSin"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="62dp"
-                android:layout_marginRight="62dp"
-                android:minHeight="0dp"
+                android:layout_toRightOf="@id/buttonCos"
+                android:layout_above="@+id/buttonNegative"
                 android:text="@string/rad"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:layout_toEndOf="@id/buttonCos" />
+
+            <Button
+                android:id="@+id/buttonNegative"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonCos"
+                android:layout_marginStart="-2dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginTop="-1dp"
+                android:layout_toEndOf="@id/buttonTan"
+                android:layout_toRightOf="@id/buttonTan"
+                android:text="@string/subtract"
+                android:textSize="25sp" />
 
         </RelativeLayout>
 

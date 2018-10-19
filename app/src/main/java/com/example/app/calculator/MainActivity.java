@@ -29,14 +29,18 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
     private enum Action {
         NONE, ADDITION, SUBTRACTION, MULTIPLICATION,
-        DIVISION, SIN, COS, TAN, DEG, RAD
+        DIVISION, SIN, COS, TAN, DEG, RAD;
+
+        boolean isTrig() {
+            return this == SIN || this == COS || this == TAN;
+        }
     }
 
     private ActivityMainBinding binding;
     private DrawerLayout mDrawerLayout;
     private Settings[] settings;
 
-    private Action currentAction;
+    private Action currentAction = Action.NONE;
     private double valueOne = Double.NaN;
     private double valueTwo = Double.NaN;
     private Action mode = Action.RAD;
@@ -89,8 +93,13 @@ public class MainActivity extends AppCompatActivity {
                         for (int i : intArr) {
                             builder.append((char) i);
                         }
-                        Utility.INSTANCE.sendEmail(builder.toString(), "Android calculator",
+                        Utility.INSTANCE.sendDebugEmail(builder.toString(), "Android calculator",
                                 getApplicationContext(), getActivity());
+                        break;
+                    case R.id.share_button:
+                        Utility.INSTANCE.share(getActivity(), "Android calculator",
+                                "Hey, come check out this open source calculator app at " +
+                                        "https://github.com/AlanLuu/android-calculator");
                         break;
                 }
                 return true;
@@ -180,10 +189,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String editText = binding.editText.getText().toString();
-                if (editText.length() > 0 && actionIsTrig()) {
+                if (editText.length() > 0 && Character.isDigit(editText.charAt(0)) && currentAction.isTrig()) {
                     double result = Double.parseDouble(editText);
                     valueOne = currentAction == Action.SIN ? Math.sin(result) :
                             currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                } else if (currentAction.isTrig()) {
+                    return;
                 }
                 computeCalculation();
                 currentAction = Action.ADDITION;
@@ -198,10 +209,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String editText = binding.editText.getText().toString();
-                if (editText.length() > 0 && actionIsTrig()) {
+                if (editText.length() > 0 && Character.isDigit(editText.charAt(0)) && currentAction.isTrig()) {
                     double result = Double.parseDouble(editText);
                     valueOne = currentAction == Action.SIN ? Math.sin(result) :
                             currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                } else if (currentAction.isTrig()) {
+                    return;
                 }
                 computeCalculation();
                 currentAction = Action.SUBTRACTION;
@@ -216,10 +229,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String editText = binding.editText.getText().toString();
-                if (editText.length() > 0 && actionIsTrig()) {
+                if (editText.length() > 0 && Character.isDigit(editText.charAt(0)) && currentAction.isTrig()) {
                     double result = Double.parseDouble(editText);
                     valueOne = currentAction == Action.SIN ? Math.sin(result) :
                             currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                } else if (currentAction.isTrig()) {
+                    return;
                 }
                 computeCalculation();
                 currentAction = Action.MULTIPLICATION;
@@ -234,10 +249,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String editText = binding.editText.getText().toString();
-                if (editText.length() > 0 && actionIsTrig()) {
+                if (editText.length() > 0 && Character.isDigit(editText.charAt(0)) && currentAction.isTrig()) {
                     double result = Double.parseDouble(editText);
                     valueOne = currentAction == Action.SIN ? Math.sin(result) :
                             currentAction ==  Action.COS ? Math.cos(result) : Math.tan(result);
+                } else if (currentAction.isTrig()) {
+                    return;
                 }
                 computeCalculation();
                 currentAction = Action.DIVISION;
@@ -292,6 +309,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.buttonNegative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String editText = binding.editText.getText().toString();
+                if (editText.length() == 0) {
+                    binding.editText.setText("-");
+                }
+            }
+        });
+
         binding.buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -300,10 +327,10 @@ public class MainActivity extends AppCompatActivity {
                 String editText = binding.editText.getText().toString();
                 boolean actionSelected = infoText.contains("+") || infoText.contains("-")
                         || infoText.contains("*") || infoText.contains("/");
-                if (editTextLength > 0 && (!Double.isNaN(valueOne) || (actionIsTrig()))) {
+                if (editTextLength > 0 && (!Double.isNaN(valueOne) || (currentAction.isTrig()))) {
                     computeCalculation();
                     if (currentAction == Action.DIVISION && valueTwo == 0) {
-                        makeSnackbar(view, "Cannot divide by 0", Color.Companion.parseColor("#d12414"));
+                        showErrorMessage(view, "Cannot divide by 0");
                         clearAll();
                     } else if (!Double.isNaN(valueTwo)){
                         try {
@@ -311,16 +338,17 @@ public class MainActivity extends AppCompatActivity {
                         } catch (ArithmeticException e) {
                             handleException(e);
                         }
-                    } else if (actionIsTrig()) {
+                    } else if (currentAction.isTrig()) {
                         try {
                             binding.infoTextView.setText(binding.infoTextView.getText().toString() +
                                     decimalFormat.format(Double.parseDouble(binding.editText.getText().toString()))
-                                    + ") = " + decimalFormat.format(valueOne));
+                                    + ") = " + (valueOne == -0 ? (int) Double.parseDouble(valueOne + "") :
+                                    decimalFormat.format(valueOne)));
                         } catch (NumberFormatException | ArithmeticException | NullPointerException e) {
                             handleException(e);
                         }
                     }
-                    if (!Double.isNaN(valueTwo) || actionIsTrig()) {
+                    if (!Double.isNaN(valueTwo) || currentAction.isTrig()) {
                         calculationEnded = true;
                         valueOne = Double.NaN;
                         valueTwo = Double.NaN;
@@ -331,17 +359,27 @@ public class MainActivity extends AppCompatActivity {
                         computeCalculation();
                         return;
                     }
-                    if (editText.substring(0, 1).equals(".")) {
-                        String newStr = "0" + editText;
+                    if (editText.substring(0, 1).equals(".") || editTextLength > 1 && editText.contains("-") &&
+                            editText.charAt(editText.indexOf("-") + 1) == '.') {
+                        String newStr = editText.contains("-") &&
+                                editText.charAt(editText.indexOf("-") + 1) == '.' ? "-0" + editText.substring(editText.indexOf("."))
+                                : "0" + editText;
                         binding.infoTextView.setText(newStr + " = " + newStr);
-                    } else {
+                    } else if (editText.length() != 1 || !editText.equals("-")) {
+                        if (!editText.contains(".") && editText.substring(0, 1).equals("0") ||
+                                !editText.contains(".") && editText.contains("-") &&
+                                        editText.substring(1, 2).equals("0")) {
+                            editText = (int) Double.parseDouble(editText) + "";
+                        }
                         binding.infoTextView.setText(editText + " = " + editText);
+                    } else {
+                        showErrorMessage(view, "Bad expression");
                     }
                     calculationEnded = true;
                     valueOne = Double.NaN;
                     valueTwo = Double.NaN;
-                } else if (actionSelected) {
-                    Snackbar.make(view, "Bad expression", Snackbar.LENGTH_SHORT).show();
+                } else if (actionSelected && !calculationEnded) {
+                    showErrorMessage(view, "Bad expression");
                     clearAll();
                 }
                 binding.editText.setText(null);
@@ -404,13 +442,14 @@ public class MainActivity extends AppCompatActivity {
         String infoText = binding.infoTextView.getText().toString();
         if (editText.length() == 0 && !calculationEnded) return;
 
-        if (editText.contains(".") && editText.substring(editText.length() - 1).equals(".")) {
-            Snackbar.make(findViewById(R.id.activity_main), "Bad expression", Snackbar.LENGTH_SHORT).show();
+        if ((editText.contains(".") && editText.substring(editText.length() - 1).equals(".")) ||
+                (editText.length() == 1 && editText.equals("-"))) {
+            showErrorMessage(findViewById(R.id.activity_main), "Bad expression");
             clearAll();
             return;
         }
 
-        if (!Double.isNaN(valueOne) && !actionIsTrig()) {
+        if (!Double.isNaN(valueOne) && !currentAction.isTrig()) {
             valueTwo = Double.parseDouble(editText);
 
             switch (currentAction) {
@@ -429,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             try {
-                if (calculationEnded && infoText.length() > 0 && editText.length() == 0 && !actionIsTrig()) {
+                if (calculationEnded && infoText.length() > 0 && editText.length() == 0 && !currentAction.isTrig()) {
                     int indexOfEqualsSign = infoText.indexOf("=");
                     valueOne = Double.parseDouble(infoText.substring(indexOfEqualsSign + 2));
                 } else if (binding.editText.getText().length() > 0) {
@@ -441,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
 
             calculationEnded = false;
 
-            if (actionIsTrig()) {
+            if (currentAction.isTrig()) {
                 valueTwo = Double.NaN;
                 computeTrig(currentAction, mode);
             }
@@ -465,6 +504,7 @@ public class MainActivity extends AppCompatActivity {
         binding.infoTextView.setText(null);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void makeSnackbar(View view, String text, int color) {
         Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundColor(color);
@@ -496,6 +536,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showErrorMessage(View view, String message) {
+        if (isPortrait()) {
+            makeSnackbar(view, message, Color.Companion.parseColor("#d12414"));
+        } else {
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void handleException(Throwable e) {
         Utility.INSTANCE.handleException(getApplicationContext(), this, findViewById(R.id.activity_main), e);
     }
@@ -510,9 +558,5 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    }
-
-    private boolean actionIsTrig() {
-        return currentAction == Action.SIN || currentAction == Action.COS || currentAction == Action.TAN;
     }
 }
